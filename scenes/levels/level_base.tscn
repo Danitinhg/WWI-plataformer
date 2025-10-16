@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d2j7vh80v06i2"]
+
+[node name="LevelBase" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]

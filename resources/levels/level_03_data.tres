@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://c5idd56sakthg"]
+
+[ext_resource type="Script" uid="uid://cqjw043440syq" path="res://scripts/resources/level_data.gd" id="1_w00km"]
+
+[resource]
+script = ExtResource("1_w00km")
+level_id = 2
+level_name = "Nivel 3"
+scene_path = "res://scenes/levels/level_03/level_03.tscn"
+unlocked = true
+unlocks_ability = "beta_ability3"
+metadata/_custom_type_script = "uid://cqjw043440syq"

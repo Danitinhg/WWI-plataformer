@@ -14,6 +14,11 @@ config/name="WWI_Source"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://scripts/autoloads/game_manager.gd"
+PlayerData="*res://scripts/autoloads/player_data.gd"
+
 [rendering]
 
 renderer/rendering_method="mobile"
