@@ -1,0 +1,7 @@
+# Godot
+.import/
+export/
+*.cfg
+*.mono
+*.user
+*.godot
