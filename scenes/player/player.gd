@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var jump_velocity: float = -400.0
 @export var gravity: float = 980.0
 
-#Giro en el aire (¡Viiup!)
+#Giro en el aire 
 @export var spin_duration: float = 0.5
 @export var spin_gravity_multiplier: float = 0.3
 var is_spinning: bool = false
@@ -19,16 +19,32 @@ var abilities: Array = []
 
 func _ready():
 	add_to_group("player")
+	load_level_ability()
+
+func load_level_ability():
+	var level_ability = GameManager.get_level_abilities()
+	
+	for ability_name in level_ability:
+		add_ability(ability_name)
+
+func add_ability(ability_name: String):
+	var ability_path = "res://scenes/player/abilities" + ability_name + ".tscn"
+	
+	if ResourceLoader.exists(ability_path):
+		var ability_scene = load(ability_path)
+		var ability = ability_scene.instantiate()
+		add_child(ability)
+		abilities.append(ability)
+	else:
+		print("no hay habilidad")
 
 func _physics_process(delta):
-	# Add the gravity.
 	if not is_on_floor():
 		if is_spinning:
 			velocity.y += gravity * spin_gravity_multiplier * delta
 		else:
 			velocity.y += gravity * delta
 	else:
-		#Al tocar el suelo, el jugador tiene disponible de nuevo el giro
 		can_spin = false
 		is_spinning = false
 
@@ -37,8 +53,8 @@ func _physics_process(delta):
 		velocity.y = jump_velocity
 		can_spin = true
 	
-	#Giro en el aire (pulsar de nuevo el boton de salta en el aire)
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and can_spin and not is_spinning:
+	#Giro en el aire
+	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning:
 		start_spin()
 	
 	#Movimiento horizontal
@@ -48,13 +64,17 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
+	for ability in abilities:
+		if ability.has_method("check_input"):
+			ability.check_input(self)
+	
 	move_and_slide()
 	
 func start_spin():
 		is_spinning = true
-		can_spin = true
+		can_spin = false
 		spin_timer = spin_duration
-		#Cuando se usen los sprites poner en esta linea que gire el player
+		#cuando esten los sprites girar el sprite para que sea un giro de verdad (en esta linea)
 
-func collect_item(collectible):
-	PlayerData.add_collectible(collectible.collectible_id)
+func collect_item2(collectible):
+	PlayerData.add_collectible(GameManager.current_level, collectible.collectible_id)

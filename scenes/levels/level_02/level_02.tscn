@@ -2,4 +2,4 @@
 
 [ext_resource type="PackedScene" uid="uid://d2j7vh80v06i2" path="res://scenes/levels/level_base.tscn" id="1_005fm"]
 
-[node name="LevelBase" instance=ExtResource("1_005fm")]
+[node name="Level02" instance=ExtResource("1_005fm")]

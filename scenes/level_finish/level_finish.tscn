@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/level_finish/level_finish.gd" id="1_gh4sh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ukrg3"]
+
+[node name="LevelFinish" type="Area2D"]
+script = ExtResource("1_gh4sh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ukrg3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

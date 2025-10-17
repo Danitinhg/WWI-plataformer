@@ -15,5 +15,5 @@ func _on_body_entered(body):
 
 func collect():
 	collected.emit(self)
-	# Espacio para implentar particulas o sonidos que haga el colec
+	# Espacio para implentar particulas o sonidos que haga el coleccionable
 	queue_free()
