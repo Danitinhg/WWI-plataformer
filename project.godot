@@ -12,13 +12,17 @@ config_version=5
 
 config/name="WWI_Source"
 run/main_scene="uid://beldljiufx01u"
-config/features=PackedStringArray("4.5", "Mobile")
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManager="*res://scripts/autoloads/game_manager.gd"
 PlayerData="*res://scripts/autoloads/player_data.gd"
+
+[dotnet]
+
+project/assembly_name="WWI_Source"
 
 [rendering]
 
