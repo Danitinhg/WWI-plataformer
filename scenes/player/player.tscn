@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crojd4pydu8k3"]
 
 [ext_resource type="Script" uid="uid://bv7r2px0kqnki" path="res://scenes/player/player.gd" id="1_8afob"]
-[ext_resource type="Texture2D" uid="uid://c28qts6dix6k8" path="res://Treasure Hunters/The Crusty Crew/Sprites/Crabby/01-Idle/Idle 01.png" id="2_dovo2"]
+[ext_resource type="Texture2D" uid="uid://4j06svjw0vvh" path="res://Treasure Hunters/The Crusty Crew/Sprites/Pink Star/01-Idle/Idle 02.png" id="2_dovo2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
 
@@ -9,6 +9,7 @@
 script = ExtResource("1_8afob")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_dovo2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
