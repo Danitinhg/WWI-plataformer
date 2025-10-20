@@ -14,22 +14,9 @@ var is_spinning: bool = false
 var spin_timer: float = 0.0
 var can_spin: bool = false
 
-#Dash
-@export var dash_speed: float = 500.0
-@export var dash_duration: float = 0.5
-var is_dashing: bool = false
-var dash_timer: float = 0.0
-
-#Doble salto
-var doble_jump_used: bool = false
-
-#Escudo reflector
-@export var reflect_duration: float = 0.5
-var is_reflect: bool = false
-var reflect_time: float = 0.0
-
 #Habilidades de los niveles
 var abilities: Array = []
+var current_ability_index: int = 0
 
 @onready var sprite = $Sprite2D
 
@@ -38,13 +25,13 @@ func _ready():
 	load_level_ability()
 
 func load_level_ability():
-	var level_ability = GameManager.get_level_abilities()
+	var level_ability_names = GameManager.get_level_abilities()
 	
-	for ability_name in level_ability:
+	for ability_name in level_ability_names:
 		add_ability(ability_name)
 
 func add_ability(ability_name: String):
-	var ability_path = "res://scenes/player/abilities" + ability_name + ".tscn"
+	var ability_path = "res://scenes/player/abilities/" + ability_name + ".tscn"
 	
 	if ResourceLoader.exists(ability_path):
 		var ability_scene = load(ability_path)
@@ -60,6 +47,11 @@ func _physics_process(delta):
 			velocity.y += gravity * spin_gravity_multiplier * delta
 		else:
 			velocity.y += gravity * delta
+		
+		if spin_timer > 0:
+			spin_timer -= delta
+			if spin_timer <= 0:
+				is_spinning = false
 	else:
 		can_spin = false
 		is_spinning = false
@@ -73,16 +65,23 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning:
 		start_spin()
 	
+	#Gestión de habilidades
+	if abilities.size() > 1 and Input.is_action_just_pressed("cycle_ability"):
+		current_ability_index = (current_ability_index + 1) % abilities.size()
+		print("Habilidad seleccionada: " + abilities[current_ability_index].name)
+
+	if not abilities.is_empty():
+		var selected_ability = abilities[current_ability_index]
+		if selected_ability.has_method("handle_input"):
+			selected_ability.handle_input(self, delta)
+
 	#Movimiento horizontal
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+		sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
-	
-	for ability in abilities:
-		if ability.has_method("check_input"):
-			ability.check_input(self)
 	
 	move_and_slide()
 	

@@ -3,6 +3,7 @@ extends Node
 signal level_completed(level_id: int)
 
 var levels: Array[LevelData] = []
+var all_abilities: Array[String] = ["DoubleJump", "Dash", "Reflect"]
 var current_level: int = -1
 var current_level_ablities: Array[String] = []
 
@@ -18,6 +19,14 @@ func load_levels():
 
 func load_level(level_id: int):
 	current_level = level_id
+
+	#🗣️🔥 Solo para el nivel de prueba🗣️🔥
+	if level_id == -1:
+		current_level_ablities = all_abilities.duplicate()
+		get_tree().change_scene_to_file("res://level_test.tscn")
+		return
+	#🗣️🔥 Solo para el nivel de prueba🗣️🔥
+
 	var level_data = levels[level_id]
 	current_level_ablities = level_data.abilities_in_level.duplicate()
 	get_tree().change_scene_to_file(level_data.scene_path)
