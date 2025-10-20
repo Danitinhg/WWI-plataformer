@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var speed: float = 200.0
 @export var jump_velocity: float = -400.0
 @export var gravity: float = 980.0
+@export var acceleration: float = 1000.0
+@export var friction: float = 1200.0
 
 #Giro en el aire 
 @export var spin_duration: float = 0.5
@@ -11,6 +13,20 @@ extends CharacterBody2D
 var is_spinning: bool = false
 var spin_timer: float = 0.0
 var can_spin: bool = false
+
+#Dash
+@export var dash_speed: float = 500.0
+@export var dash_duration: float = 0.5
+var is_dashing: bool = false
+var dash_timer: float = 0.0
+
+#Doble salto
+var doble_jump_used: bool = false
+
+#Escudo reflector
+@export var reflect_duration: float = 0.5
+var is_reflect: bool = false
+var reflect_time: float = 0.0
 
 #Habilidades de los niveles
 var abilities: Array = []
@@ -60,9 +76,9 @@ func _physics_process(delta):
 	#Movimiento horizontal
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
-		velocity.x = direction * speed
+		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
 	
 	for ability in abilities:
 		if ability.has_method("check_input"):
