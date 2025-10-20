@@ -3,7 +3,7 @@ extends Node
 signal level_completed(level_id: int)
 
 var levels: Array[LevelData] = []
-var all_abilities: Array[String] = ["DoubleJump", "Dash", "Reflect"]
+var all_abilities: Array[String] = ["Dash", "DoubleJump", "Reflect"]
 var current_level: int = -1
 var current_level_ablities: Array[String] = []
 
@@ -46,3 +46,4 @@ func return_to_level_selector():
 
 func get_level_abilities() -> Array[String]:
 	return current_level_ablities
+	
