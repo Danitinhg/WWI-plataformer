@@ -64,7 +64,7 @@ func _physics_process(delta):
 		can_spin = true
 	
 	# Giro en el aire
-	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning:
+	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning and velocity.y > 0:
 		start_spin()
 	
 	# Gestión de habilidades
