@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-# Movimiento básico del player, moverse y saltar
+# Movimiento básico del player
 @export var speed: float = 300.0
 @export var jump_velocity: float = -400.0
 @export var gravity: float = 980.0
@@ -15,7 +15,7 @@ var spin_timer: float = 0.0
 var can_spin: bool = false
 
 # Habilidades de los niveles
-var abilities: Array = []
+var abilities: Array[AbilityBase] = []
 var current_ability_index: int = 0
 
 @onready var sprite = $Sprite2D
@@ -40,9 +40,9 @@ func add_ability(ability_name: String):
 		ability.putAbility(self)
 		abilities.append(ability)
 	else:
-		print("No hay habilidad: ", ability_name)
+		push_error("No hay habilidad: %s" % ability_name)
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	# Aplicar gravedad
 	if not is_on_floor():
 		if is_spinning:
@@ -63,14 +63,15 @@ func _physics_process(delta):
 		velocity.y = jump_velocity
 		can_spin = true
 	
-	# Giro en el aire
+	# Giro en el aire (spin)
 	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning and velocity.y > 0:
 		start_spin()
 	
 	# Gestión de habilidades
 	if abilities.size() > 1 and Input.is_action_just_pressed("cycle_ability"):
 		current_ability_index = (current_ability_index + 1) % abilities.size()
-		print("Habilidad seleccionada: ", abilities[current_ability_index].name)
+		var ability_name = abilities[current_ability_index].name
+		print("Habilidad seleccionada: %s" % ability_name)
 	
 	if not abilities.is_empty():
 		var selected_ability = abilities[current_ability_index]
@@ -92,7 +93,7 @@ func start_spin():
 	is_spinning = true
 	can_spin = false
 	spin_timer = spin_duration
-	# Cuando estén los sprites girar el sprite para que sea un giro de verdad (en esta línea)
+	# Cuando estén los sprites girar el sprite para que sea un giro de verdad
 
-func collect_item2(collectible):
+func collect_item2(collectible: Node) -> void:
 	PlayerData.add_collectible(GameManager.current_level, collectible.collectible_id)

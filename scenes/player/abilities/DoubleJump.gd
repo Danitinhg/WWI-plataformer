@@ -12,3 +12,9 @@ func activate():
 		player.velocity.y = double_jump_velocity
 		has_double_jumped = true
 		# efecto visual o particulas abajo
+
+func has_used_double_jump() -> bool:
+	return has_double_jumped
+
+func is_double_jump_available() -> bool:
+	return not has_double_jumped and not player.is_on_floor()
