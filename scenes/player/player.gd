@@ -1,22 +1,32 @@
 extends CharacterBody2D
 
 # Movimiento básico del player
+@export_group("Movimiento")
 @export var speed: float = 300.0
-@export var jump_velocity: float = -400.0
-@export var gravity: float = 980.0
 @export var acceleration: float = 1000.0
 @export var friction: float = 1200.0
 
+#Salto
+@export_group("Salto")
+@export var jump_velocity: float = -400.0
+@export var gravity: float = 980.0
+
 # Giro en el aire
+@export_group("Spin")
 @export var spin_duration: float = 0.5
 @export var spin_gravity_multiplier: float = 0.3
+
 var is_spinning: bool = false
 var spin_timer: float = 0.0
 var can_spin: bool = false
 
-#Coyote Time
+# Coyote Time y Jump Buffer
+@export_group("Controles Avanzados")
 @export var coyote_time_duration: float = 0.15
+@export var jump_buffer_duration: float = 0.15
+
 var coyote_time_timer: float = 0.0
+var jump_buffer_timer: float = 0.0
 
 # Habilidades de los niveles
 var abilities: Array[AbilityBase] = []
@@ -30,7 +40,7 @@ func _ready():
 
 func load_level_ability():
 	var level_ability_names = GameManager.get_level_abilities()
-	
+
 	for ability_name in level_ability_names:
 		add_ability(ability_name)
 
@@ -47,64 +57,119 @@ func add_ability(ability_name: String):
 		push_error("No hay habilidad: %s" % ability_name)
 
 func _physics_process(delta: float):
-	# Aplicar gravedad
-	if not is_on_floor():
-		if is_spinning:
-			velocity.y += gravity * spin_gravity_multiplier * delta
-		else:
-			velocity.y += gravity * delta
+	handle_gravity(delta)
+	update_timers(delta)
+	handle_jump()
+	handle_spin()
+	handle_abilities(delta)
+	handle_horizontal_movement(delta)
 	
-	# Coyote Time y estado en suelo
+	move_and_slide()
+
+# Aplicar gravedad
+func handle_gravity(delta: float):
 	if is_on_floor():
-		coyote_time_timer = coyote_time_duration
-		can_spin = false
-		is_spinning = false
-	else:
-		coyote_time_timer -= delta
+		return
+	
+	var gravity_multiplier = spin_gravity_multiplier if is_spinning else 1.0
+	velocity.y += gravity * gravity_multiplier * delta
+
+# Actualizar temporizadores
+func update_timers(delta: float):
+	coyote_time_timer -= delta
+	jump_buffer_timer -= delta
 	
 	if spin_timer > 0:
 		spin_timer -= delta
 		if spin_timer <= 0:
 			is_spinning = false
 	
-	# Saltar
+	# Coyote Time y estado cuando el payer esta en el suelo
+	if is_on_floor():
+		coyote_time_timer = coyote_time_duration
+		can_spin = false
+		is_spinning = false
+
+func handle_jump():
+	# Registrar el momento del salto
 	if Input.is_action_just_pressed("ui_accept"):
-		if coyote_time_timer > 0.0:
-			velocity.y = jump_velocity
-			coyote_time_timer = 0.0
-			can_spin = true
+		jump_buffer_timer = jump_buffer_duration
 	
-	# Giro en el aire (spin)
-	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning and velocity.y > 0:
+	# Comprobar si hay que saltar
+	var can_jump = is_on_floor() or coyote_time_timer > 0.0
+	
+	if jump_buffer_timer > 0.0 and can_jump:
+		perform_jump()
+
+func perform_jump():
+	velocity.y = jump_velocity
+	coyote_time_timer = 0.0
+	jump_buffer_timer = 0.0
+	can_spin = true
+
+# Giro en el aire (spin)
+func handle_spin():
+	var can_perform_spin = (
+		Input.is_action_just_pressed("ui_accept") and
+		not is_on_floor() and
+		can_spin and
+		not is_spinning and
+		velocity.y > 0
+	)
+	
+	if can_perform_spin:
 		start_spin()
-	
-	# Gestión de habilidades
-	if abilities.size() > 1 and Input.is_action_just_pressed("cycle_ability"):
-		current_ability_index = (current_ability_index + 1) % abilities.size()
-		var ability_name = abilities[current_ability_index].name
-		print("Habilidad seleccionada: %s" % ability_name)
-	
-	if not abilities.is_empty():
-		var selected_ability = abilities[current_ability_index]
-		selected_ability.process(delta)
-		if Input.is_action_just_pressed("ability_action"):
-			selected_ability.activate()
-	
-	# Movimiento horizontal
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
-		sprite.flip_h = direction < 0
-	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-	
-	move_and_slide()
 
 func start_spin():
 	is_spinning = true
 	can_spin = false
 	spin_timer = spin_duration
-	# Cuando estén los sprites girar el sprite para que sea un giro de verdad
+	# Aqui poer los efectos de sonido o particulas al hacer el spin
 
-func collect_item2(collectible: Node) -> void:
+# Movimiento horizontal
+func handle_horizontal_movement(delta: float):
+	var direction = Input.get_axis("ui_left", "ui_right")
+	
+	if direction != 0:
+		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+		sprite.flip_h = direction < 0
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+
+# Gestión de habilidades
+func handle_abilities(delta: float):
+	if abilities.is_empty():
+		return
+	
+	if abilities.size() > 1 and Input.is_action_just_pressed("cycle_ability"):
+		cycle_ability()
+	
+	var selected_ability = abilities[current_ability_index]
+	selected_ability.process(delta)
+	
+	if Input.is_action_just_pressed("ability_action"):
+		selected_ability.activate()
+
+func cycle_ability():
+	current_ability_index = (current_ability_index + 1) % abilities.size()
+	var ability_name = abilities[current_ability_index].name
+	print("Habilidad seleccionada: %s" % ability_name)
+
+
+func get_current_ability() -> AbilityBase:
+	if abilities.is_empty():
+		return null
+	return abilities[current_ability_index]
+
+func has_ability(ability_name: String) -> bool:
+	for ability in abilities:
+		if ability.name == ability_name:
+			return true
+	return false
+
+func collect_item(collectible: Node):
+	if not collectible.has("collectible_id"):
+		push_error("El objeto coleccionable no tiene collectible_id")
+		return
+	
 	PlayerData.add_collectible(GameManager.current_level, collectible.collectible_id)
