@@ -14,6 +14,10 @@ var is_spinning: bool = false
 var spin_timer: float = 0.0
 var can_spin: bool = false
 
+#Coyote Time
+@export var coyote_time_duration: float = 0.15
+var coyote_time_timer: float = 0.0
+
 # Habilidades de los niveles
 var abilities: Array[AbilityBase] = []
 var current_ability_index: int = 0
@@ -49,19 +53,26 @@ func _physics_process(delta: float):
 			velocity.y += gravity * spin_gravity_multiplier * delta
 		else:
 			velocity.y += gravity * delta
-		
-		if spin_timer > 0:
-			spin_timer -= delta
-			if spin_timer <= 0:
-				is_spinning = false
-	else:
+	
+	# Coyote Time y estado en suelo
+	if is_on_floor():
+		coyote_time_timer = coyote_time_duration
 		can_spin = false
 		is_spinning = false
+	else:
+		coyote_time_timer -= delta
+	
+	if spin_timer > 0:
+		spin_timer -= delta
+		if spin_timer <= 0:
+			is_spinning = false
 	
 	# Saltar
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = jump_velocity
-		can_spin = true
+	if Input.is_action_just_pressed("ui_accept"):
+		if coyote_time_timer > 0.0:
+			velocity.y = jump_velocity
+			coyote_time_timer = 0.0
+			can_spin = true
 	
 	# Giro en el aire (spin)
 	if Input.is_action_just_pressed("ui_accept") and not is_on_floor() and can_spin and not is_spinning and velocity.y > 0:
