@@ -1,11 +1,12 @@
 extends CharacterBody2D
 class_name EnemyBase
 
-const SPEED = 150.0
+const SPEED = 15000.0
 
 var move_direction = 1
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var wall_raycast = $Raycast2D
 
 func _ready():
 	pass
@@ -21,5 +22,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	if is_on_wall():
+	if wall_raycast.is_colliding():
 		move_direction *= -1
+		wall_raycast.target_position.x *= -1
