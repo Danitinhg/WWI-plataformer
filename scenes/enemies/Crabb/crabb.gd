@@ -1,4 +1,5 @@
 extends EnemyBase
 
 func _ready():
-    pass
+	pass
+	animated_sprite.play("walk")

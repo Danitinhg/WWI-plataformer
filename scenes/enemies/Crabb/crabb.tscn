@@ -1,5 +1,51 @@
-[gd_scene load_steps=2 format=3 uid="uid://886te6knwaxy"]
+[gd_scene load_steps=11 format=3 uid="uid://886te6knwaxy"]
 
 [ext_resource type="PackedScene" uid="uid://djtm2i81u5uxa" path="res://scenes/enemies/enemy_base.tscn" id="1_e3dyx"]
+[ext_resource type="Texture2D" uid="uid://cq3uupiqy7v11" path="res://assets/sprites/enemies/Crabby/02-Run/Run 01.png" id="2_xdn00"]
+[ext_resource type="Texture2D" uid="uid://ra03yeck38ok" path="res://assets/sprites/enemies/Crabby/02-Run/Run 02.png" id="3_argbl"]
+[ext_resource type="Texture2D" uid="uid://byhula7482h7l" path="res://assets/sprites/enemies/Crabby/02-Run/Run 03.png" id="4_xvcid"]
+[ext_resource type="Texture2D" uid="uid://c7deoeecod77h" path="res://assets/sprites/enemies/Crabby/02-Run/Run 04.png" id="5_8d5a6"]
+[ext_resource type="Texture2D" uid="uid://khd1n36t552w" path="res://assets/sprites/enemies/Crabby/02-Run/Run 05.png" id="6_xewwx"]
+[ext_resource type="Texture2D" uid="uid://cng8d3f6sq7wu" path="res://assets/sprites/enemies/Crabby/02-Run/Run 06.png" id="7_wc3g4"]
+[ext_resource type="Script" uid="uid://31c7ey82080d" path="res://scenes/enemies/Crabb/crabb.gd" id="8_argbl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ks36b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xdn00")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_argbl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xvcid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8d5a6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xewwx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wc3g4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdn00"]
+size = Vector2(21, 21)
 
 [node name="Crabb" instance=ExtResource("1_e3dyx")]
+script = ExtResource("8_argbl")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ks36b")
+animation = &"walk"
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_xdn00")
