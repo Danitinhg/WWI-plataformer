@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name EnemyBase
 
 const SPEED = 150.0
 
