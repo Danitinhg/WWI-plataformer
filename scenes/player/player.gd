@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 # Movimiento básico del player
 @export_group("Movimiento")
-@export var speed: float = 300.0
+@export var speed: float = 260.0
 @export var acceleration: float = 1000.0
 @export var friction: float = 1200.0
 
 #Salto
 @export_group("Salto")
-@export var jump_velocity: float = -400.0
+@export var jump_velocity: float = -350.0
 @export var gravity: float = 980.0
 #Animaciones antes y despues del salto
 var is_landing: bool = false
