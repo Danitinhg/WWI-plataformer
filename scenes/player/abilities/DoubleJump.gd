@@ -3,7 +3,7 @@ extends AbilityBase
 @export var double_jump_velocity: float = -350.0
 var has_double_jumped: bool = false
 
-func process(_delta: float):
+func physics_update(_delta: float):
 	if player.is_on_floor():
 		has_double_jumped = false
 

@@ -18,7 +18,7 @@ func _ready() -> void:
 		return
 	deactivate_shield()
 
-func process(delta: float) -> void:
+func physics_update(delta: float) -> void:
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
 	

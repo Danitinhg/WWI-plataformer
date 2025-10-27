@@ -7,7 +7,7 @@ extends AbilityBase
 var cooldown_timer: float = 0.0
 var dash_timer: float = 0.0
 
-func process(delta: float):
+func physics_update(delta: float):
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
 	
