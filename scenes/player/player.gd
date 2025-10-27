@@ -10,6 +10,11 @@ extends CharacterBody2D
 @export_group("Salto")
 @export var jump_velocity: float = -400.0
 @export var gravity: float = 980.0
+#Animaciones antes y despues del salto
+var is_landing: bool = false
+var is_anticipating: bool = false
+var was_in_air: bool = false
+
 
 # Giro en el aire
 @export_group("Spin")
@@ -32,7 +37,8 @@ var jump_buffer_timer: float = 0.0
 var abilities: Array[AbilityBase] = []
 var current_ability_index: int = 0
 
-@onready var sprite: Sprite2D = $Sprite2D
+#Sprite del player
+@onready var spriteA : AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
 	add_to_group("player")
@@ -55,7 +61,7 @@ func add_ability(ability_name: String):
 		push_error("No se pudo cargar la escena de habilidad: %s" % ability_path)
 		return
 
-	var ability = ability_scene.instantiate()
+	var ability = ability_scene.instantiate() as AbilityBase
 	if not ability:
 		push_error("No se pudo instanciar la habilidad: %s" % ability_path)
 		return
@@ -66,12 +72,14 @@ func add_ability(ability_name: String):
 	
 
 func _physics_process(delta: float):
+	check_landing()
 	handle_gravity(delta)
 	update_timers(delta)
 	handle_jump()
 	handle_spin()
 	handle_abilities(delta)
 	handle_horizontal_movement(delta)
+	update_animation()
 	
 	move_and_slide()
 
@@ -106,7 +114,7 @@ func handle_jump():
 	# Comprobar si hay que saltar
 	var can_jump = is_on_floor() or coyote_time_timer > 0.0
 	
-	if jump_buffer_timer > 0.0 and can_jump:
+	if jump_buffer_timer > 0.0 and can_jump and not is_anticipating:
 		perform_jump()
 
 func perform_jump():
@@ -114,6 +122,15 @@ func perform_jump():
 	coyote_time_timer = 0.0
 	jump_buffer_timer = 0.0
 	can_spin = true
+
+func check_landing():
+	var is_in_air = not is_on_floor()
+	
+	if was_in_air and not is_in_air and not is_landing:
+		is_landing = true
+		get_tree().create_timer(0.15).timeout.connect(func():is_landing = false)
+
+	was_in_air = is_in_air
 
 # Giro en el aire (spin)
 func handle_spin():
@@ -140,9 +157,34 @@ func handle_horizontal_movement(delta: float):
 	
 	if direction != 0.0:
 		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
-		sprite.flip_h = direction < 0.0
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
+
+#Cambiar animación
+func update_animation():
+	if velocity.x != 0:
+		spriteA.flip_h = velocity.x > 0
+	
+	var new_animation = ""
+
+	if is_landing:
+		new_animation = "landing"
+	elif is_anticipating:
+		new_animation = "anticipation"
+	elif is_on_floor():
+		if abs(velocity.x) > 5:
+			new_animation = "run"
+		else:
+			new_animation = "idle"
+	else:
+		if velocity.y < 0:
+			new_animation = "jump"
+		else:
+			new_animation = "fall"
+		
+	if spriteA.animation != new_animation:
+		spriteA.play(new_animation)
+	
 
 # Gestión de habilidades
 func handle_abilities(delta: float):
@@ -188,9 +230,9 @@ func collect_item(collectible: Node):
 		return
 
 	var collectible_id = collectible.get("collectible_id")
-	if collectible.id == null:
+	if collectible_id == null:
 		push_error("collectible_id es null")
 		return
 
-	PlayerData.add_collectible(GameManager.current_level, collectible.collectible_id)
+	PlayerData.add_collectible(GameManager.current_level, collectible_id)
 	print("Coleccionable recogido: %s" % collectible_id)
