@@ -14,7 +14,7 @@ extends CharacterBody2D
 var is_landing: bool = false
 var is_anticipating: bool = false
 var was_in_air: bool = false
-
+var jump_was_pressed: bool = false
 
 # Giro en el aire
 @export_group("Spin")
@@ -114,7 +114,7 @@ func handle_jump():
 	# Comprobar si hay que saltar
 	var can_jump = is_on_floor() or coyote_time_timer > 0.0
 	
-	if jump_buffer_timer > 0.0 and can_jump and not is_anticipating:
+	if jump_buffer_timer > 0.0 and can_jump and not is_anticipating and not jump_was_pressed:
 		perform_jump()
 
 func perform_jump():
@@ -122,6 +122,10 @@ func perform_jump():
 	coyote_time_timer = 0.0
 	jump_buffer_timer = 0.0
 	can_spin = true
+	jump_was_pressed = true
+
+	is_anticipating = true
+	get_tree().create_timer(0.08).timeout.connect(func():is_anticipating = false)
 
 func check_landing():
 	var is_in_air = not is_on_floor()
@@ -168,7 +172,7 @@ func update_animation():
 	var new_animation = ""
 
 	if is_landing:
-		new_animation = "landing"
+		new_animation = "ground"
 	elif is_anticipating:
 		new_animation = "anticipation"
 	elif is_on_floor():
@@ -204,7 +208,12 @@ func cycle_ability():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_accept"):
-		jump_buffer_timer = jump_buffer_duration
+		if is_on_floor() or coyote_time_timer > 0.0:
+			jump_buffer_timer = jump_buffer_duration
+			jump_was_pressed = false
+
+	if event.is_action_released("ui_accept"):
+		jump_was_pressed = false
 	
 	if abilities.size() > 1 and event.is_action_pressed("cycle_ability"):
 		cycle_ability()
