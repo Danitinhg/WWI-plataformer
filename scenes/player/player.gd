@@ -245,3 +245,7 @@ func collect_item(collectible: Node):
 
 	PlayerData.add_collectible(GameManager.current_level, collectible_id)
 	print("Coleccionable recogido: %s" % collectible_id)
+	
+	# Llamar al método collect() dl coleccionable para que se destruya
+	if collectible.has_method("collect"):
+		collectible.collect()
