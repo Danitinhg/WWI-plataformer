@@ -2,7 +2,6 @@ extends Control
 
 func _ready():
 	$VBoxContainer/PlayButton.pressed.connect(_on_play_button_pressed)
-	$VBoxContainer/TestLevelButton.pressed.connect(_on_test_level_button_pressed)
 	$VBoxContainer/QuitButton.pressed.connect(_on_quit_button_pressed)
 
 func _on_play_button_pressed():
