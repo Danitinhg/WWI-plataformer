@@ -9,7 +9,7 @@ var current_level_ablities: Array[String] = []
 
 func _ready():
 	load_levels()
-
+	
 func load_levels():
 	levels = [
 		load("res://resources/levels/level_01_data.tres"),
@@ -23,13 +23,13 @@ func load_level(level_id: int):
 	#🗣️🔥 Solo para el nivel de prueba🗣️🔥
 	if level_id == -1:
 		current_level_ablities = all_abilities.duplicate()
-		get_tree().change_scene_to_file("res://level_test.tscn")
+		get_tree().change_scene_to_file.call_deferred("res://level_test.tscn")
 		return
 	#🗣️🔥 Solo para el nivel de prueba🗣️🔥
 
 	var level_data = levels[level_id]
 	current_level_ablities = level_data.abilities_in_level.duplicate()
-	get_tree().change_scene_to_file(level_data.scene_path)
+	get_tree().change_scene_to_file.call_deferred(level_data.scene_path)
 
 func complete_level():
 	if current_level == -1:
@@ -42,7 +42,7 @@ func complete_level():
 func return_to_level_selector():
 	current_level = -1
 	current_level_ablities.clear()
-	get_tree().change_scene_to_file("res://scenes/ui/level_selector/level_selector.tscn")
+	get_tree().change_scene_to_file.call_deferred("res://scenes/ui/level_selector/level_selector.tscn")
 
 func get_level_abilities() -> Array[String]:
 	return current_level_ablities
