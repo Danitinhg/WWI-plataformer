@@ -1,5 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0ugpt2fitoit"]
+[gd_scene load_steps=3 format=3 uid="uid://cpbacnqtb4bi1"]
 
-[ext_resource type="PackedScene" uid="uid://d2j7vh80v06i2" path="res://scenes/levels/level_base.tscn" id="1_005fm"]
+[ext_resource type="PackedScene" uid="uid://c8gveeihjsc3n" path="res://scenes/collectibles/beta_big_coin/collectible_beta_big_coin.tscn" id="1_7uvip"]
+[ext_resource type="Script" uid="uid://b24lthyqe7gih" path="res://scenes/levels/level_02/level_02.gd" id="1_e78mx"]
 
-[node name="Level02" instance=ExtResource("1_005fm")]
+[node name="Level02" type="Node2D"]
+script = ExtResource("1_e78mx")
+level_id = 1
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="CollectibleBase" parent="Collectibles" instance=ExtResource("1_7uvip")]
+
+[node name="CollectibleBase2" parent="Collectibles" instance=ExtResource("1_7uvip")]
+
+[node name="CollectibleBase3" parent="Collectibles" instance=ExtResource("1_7uvip")]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+
+[connection signal="collected" from="Collectibles/CollectibleBase" to="." method="_on_collectible_base_collected"]
+[connection signal="collected" from="Collectibles/CollectibleBase2" to="." method="_on_collectible_base_2_collected"]
+[connection signal="collected" from="Collectibles/CollectibleBase3" to="." method="_on_collectible_base_3_collected"]
