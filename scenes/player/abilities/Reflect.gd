@@ -59,11 +59,11 @@ func deactivate_shield() -> void:
 
 func _update_shield_position() -> void:
 	"""Posiciona el escudo frente al jugador según su dirección"""
-	if not player.has_node("Sprite2D"):
+	if not player.has_node("AnimatedSprite2D"):
 		push_error("Reflect: Player no tiene nodo Sprite2D")
 		return
 
-	var sprite = player.get_node("Sprite2D")
+	var sprite = player.get_node("AnimatedSprite2D")
 	var is_facing_left = sprite.flip_h
 	
 	# Poner rotación de la esfera

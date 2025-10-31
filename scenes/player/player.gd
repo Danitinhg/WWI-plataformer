@@ -233,19 +233,24 @@ func has_ability(ability_name: String) -> bool:
 			return true
 	return false
 
-func collect_item(collectible: Node):
-	if not collectible.has("collectible_id"):
-		push_error("El objeto coleccionable no tiene collectible_id")
-		return
+func collect_item(collectible: Collectible):
+	var collectible_id = collectible.collectible_id
 
-	var collectible_id = collectible.get("collectible_id")
-	if collectible_id == null:
-		push_error("collectible_id es null")
+	if PlayerData.is_collectible_collected(GameManager.current_level, collectible_id):
 		return
 
 	PlayerData.add_collectible(GameManager.current_level, collectible_id)
 	print("Coleccionable recogido: %s" % collectible_id)
-	
+
 	# Llamar al método collect() dl coleccionable para que se destruya
 	if collectible.has_method("collect"):
 		collectible.collect()
+
+	#if not collectible.has("collectible_id"):
+	#	push_error("El objeto coleccionable no tiene collectible_id")
+	#	return
+
+	#var collectible_id = collectible.get("collectible_id")
+	#if collectible_id == null:
+	#	push_error("collectible_id es null")
+	#	return
