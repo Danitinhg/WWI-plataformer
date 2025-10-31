@@ -1,7 +1,7 @@
 extends AbilityBase
 
-@export var dash_speed: float = 750.0
-@export var dash_duration: float = 0.15
+@export var dash_speed: float = 550.0
+@export var dash_duration: float = 0.20
 @export var cooldown: float = 0.8
 
 var cooldown_timer: float = 0.0

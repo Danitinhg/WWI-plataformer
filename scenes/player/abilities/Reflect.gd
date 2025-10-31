@@ -18,7 +18,7 @@ func _ready() -> void:
 		return
 	deactivate_shield()
 
-func physics_update(delta: float) -> void:
+func physics_update(delta: float) -> bool:
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
 	
@@ -31,6 +31,8 @@ func physics_update(delta: float) -> void:
 	# Si el escudo ta activo, seguir al jugador
 	if is_active:
 		_update_shield_position()
+
+	return false
 
 func activate() -> void:
 	# No pone el escudo si ya esta activo o en cooldown
