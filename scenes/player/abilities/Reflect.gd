@@ -66,15 +66,15 @@ func _update_shield_position() -> void:
 		return
 
 	var sprite = player.get_node("AnimatedSprite2D")
-	var is_facing_left = sprite.flip_h
+	var is_facing_right = sprite.flip_h
 	
 	# Poner rotación de la esfera
-	if is_facing_left:
-		rotation = deg_to_rad(180)
-		global_position = player.global_position + Vector2(-shield_offset, 0)
-	else:
+	if is_facing_right:
 		rotation = 0.0
 		global_position = player.global_position + Vector2(shield_offset, 0)
+	else:
+		rotation = deg_to_rad(180)
+		global_position = player.global_position + Vector2(-shield_offset, 0)
 
 func _on_reflect_area_body_entered(body: Node2D):
 	"""Detectar y reflejar proyectiles"""
