@@ -9,5 +9,8 @@ func putAbility(player_node: CharacterBody2D):
 func physics_update(_delta: float) -> bool:
 	return false
 
+func get_animation_name() -> String:
+	return ""
+
 func activate():
 	pass

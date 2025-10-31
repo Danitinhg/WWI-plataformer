@@ -172,12 +172,18 @@ func handle_player_movement(delta: float):
 
 #Cambiar animación
 func update_animation():
-	if velocity.x != 0:
+	if velocity.x != 0 and not ability_in_control:
 		spriteA.flip_h = velocity.x > 0
 	
 	var new_animation = ""
+	var ability_animation = ""
 
-	if is_landing:
+	if not abilities.is_empty():
+		ability_animation = abilities[current_ability_index].get_animation_name()
+
+	if ability_animation != "":
+		new_animation = ability_animation
+	elif is_landing:
 		new_animation = "ground"
 	elif is_anticipating:
 		new_animation = "anticipation"

@@ -30,3 +30,9 @@ func activate():
 	if cooldown_timer <= 0:
 		dash_timer = dash_duration
 		cooldown_timer = cooldown
+
+func get_animation_name() -> String:
+	if dash_timer > 0:
+		return "Dash"
+
+	return ""
