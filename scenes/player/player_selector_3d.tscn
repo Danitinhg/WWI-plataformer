@@ -75,7 +75,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="PlayerSelector3D" type="CharacterBody3D"]
+[node name="PlayerSelector3D" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_ax265")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
