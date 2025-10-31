@@ -36,6 +36,7 @@ var jump_buffer_timer: float = 0.0
 # Habilidades de los niveles
 var abilities: Array[AbilityBase] = []
 var current_ability_index: int = 0
+var ability_in_control: bool = false
 
 #Sprite del player
 @onready var spriteA : AnimatedSprite2D = $AnimatedSprite2D
@@ -164,6 +165,11 @@ func handle_horizontal_movement(delta: float):
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
 
+func handle_player_movement(delta: float):
+	if not ability_in_control:
+		handle_gravity(delta)
+		handle_horizontal_movement(delta)
+
 #Cambiar animación
 func update_animation():
 	if velocity.x != 0:
@@ -189,14 +195,14 @@ func update_animation():
 	if spriteA.animation != new_animation:
 		spriteA.play(new_animation)
 	
-
 # Gestión de habilidades
 func handle_abilities(delta: float):
 	if abilities.is_empty():
+		ability_in_control = false
 		return
 	
 	var selected_ability = abilities[current_ability_index]
-	selected_ability.physics_update(delta)
+	ability_in_control = selected_ability.physics_update(delta)
 
 func cycle_ability():
 	if abilities.size() <= 1:
