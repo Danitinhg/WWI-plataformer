@@ -46,6 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://bx5nqje26v10e" path="res://assets/sprites/player/Pink Star/03-Jump/Jump 03.png" id="30_7072n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
+height = 24.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ugbui"]
 animations = [{
@@ -64,7 +65,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Dash",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -246,5 +247,6 @@ zoom = Vector2(2, 2)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ugbui")
-animation = &"Dash"
-frame_progress = 0.16213943
+animation = &"idle"
+frame = 6
+frame_progress = 0.5342292

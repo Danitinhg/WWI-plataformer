@@ -257,12 +257,3 @@ func collect_item(collectible: Collectible):
 	# Llamar al método collect() dl coleccionable para que se destruya
 	if collectible.has_method("collect"):
 		collectible.collect()
-
-	#if not collectible.has("collectible_id"):
-	#	push_error("El objeto coleccionable no tiene collectible_id")
-	#	return
-
-	#var collectible_id = collectible.get("collectible_id")
-	#if collectible_id == null:
-	#	push_error("collectible_id es null")
-	#	return
