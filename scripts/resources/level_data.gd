@@ -7,5 +7,5 @@ class_name LevelData
 @export var completed: bool = false
 @export var abilities_in_level: Array[String] = []
 @export_multiline var description: String = ""
-@export var total_collectibles: int = 3
-@export var collected_count: int = 0
+@export var collectibles: Array[bool] = [false, false, false]
+
