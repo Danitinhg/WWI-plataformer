@@ -15,9 +15,9 @@ func _ready():
 	#Gestión de los coleccionables recogidos en el nivekl
 	var level_data = GameManager.levels[level_id]
 	var collected_in_level = PlayerData.get_collected_for_level(level_id)
-	for k in range(level_data.big_coins_collected.size()):
+	for k in range(level_data.collectibles.size()):
 		if k in collected_in_level:
-			level_data.big_coins_collected[k] = true
+			level_data.collectibles[k] = true
 
 	#quitar los items ya recogidos
 	hide_collected_items()
@@ -32,8 +32,8 @@ func hide_collected_items():
 func _on_collectible_base_collected(collectible: Variant) -> void:
 	var level_data = GameManager.levels[level_id]
 	
-	if collectible.collectible_id >= 0 and collectible.collectible_id < level_data.big_coins_collected.size():
-		level_data.big_coins_collected[collectible.collectible_id] = true
+	if collectible.collectible_id >= 0 and collectible.collectible_id < level_data.collectibles.size():
+		level_data.collectibles[collectible.collectible_id] = true
 		print("Moneda %s del nivel %s recogida" % [collectible.collectible_id, level_id])
 
 	print("Se conecto la señal para: " + collectible.name)

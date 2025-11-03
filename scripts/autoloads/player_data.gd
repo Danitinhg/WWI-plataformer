@@ -42,5 +42,10 @@ func is_collectible_collected(level_id: int, collectible_id: int) -> bool:
 		return collectible_id in collected_items[level_id]
 	return false
 
+func get_collected_for_level(level_id: int) -> Array:
+	if collected_items.has(level_id):
+		return collected_items[level_id]
+	return []
+
 func is_level_completed(level_id: int) -> bool:
 	return level_id in completed_levels

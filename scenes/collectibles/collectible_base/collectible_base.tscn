@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://0s740r5vtclt" path="res://scenes/collectibles/collectible_base/collectible_base.gd" id="1_gh4sh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ukrg3"]
+radius = 7.0
 
 [node name="CollectibleBase" type="Area2D"]
 script = ExtResource("1_gh4sh")

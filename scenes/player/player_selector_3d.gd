@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var speed: float = 2.0
 @onready var animated_sprite_3d = $AnimatedSprite3D
 
-func _physics_process(delta):
+func _physics_process(_delta):
     #Movimiento
     var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
     var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

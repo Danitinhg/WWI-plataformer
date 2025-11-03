@@ -15,8 +15,10 @@ script = ExtResource("1_e78mx")
 [node name="BigCoin1" parent="Items" instance=ExtResource("2_tmh7d")]
 
 [node name="BigCoin2" parent="Items" instance=ExtResource("2_tmh7d")]
+collectible_id = 1
 
 [node name="BigCoin3" parent="Items" instance=ExtResource("2_tmh7d")]
+collectible_id = 2
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 
