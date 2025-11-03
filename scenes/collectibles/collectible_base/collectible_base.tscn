@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsxwalpytyj5e"]
 
-[ext_resource type="Script" uid="uid://0s740r5vtclt" path="res://scenes/collectibles/collectible_base.gd" id="1_gh4sh"]
+[ext_resource type="Script" uid="uid://0s740r5vtclt" path="res://scenes/collectibles/collectible_base/collectible_base.gd" id="1_gh4sh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ukrg3"]
 

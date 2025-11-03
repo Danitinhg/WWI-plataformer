@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://88smftbebkju" path="res://scenes/levels/level_01/level_01.gd" id="2_15mrc"]
 [ext_resource type="Texture2D" uid="uid://bh21b0e1m3p1d" path="res://icon.svg" id="2_h7puh"]
-[ext_resource type="PackedScene" uid="uid://c8gveeihjsc3n" path="res://scenes/collectibles/beta_big_coin/collectible_beta_big_coin.tscn" id="2_ss2k4"]
+[ext_resource type="PackedScene" uid="uid://bvk6mthybt2hs" path="res://scenes/collectibles/beta_big_coin/big_coin.tscn" id="3_15mrc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fi7ee"]
 
@@ -91,14 +91,14 @@ tile_set = SubResource("TileSet_lb6o6")
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="CollectibleBase" parent="Items" instance=ExtResource("2_ss2k4")]
+[node name="BigCoin1" parent="Items" instance=ExtResource("3_15mrc")]
 
-[node name="CollectibleBase2" parent="Items" instance=ExtResource("2_ss2k4")]
+[node name="BigCoin2" parent="Items" instance=ExtResource("3_15mrc")]
 
-[node name="CollectibleBase3" parent="Items" instance=ExtResource("2_ss2k4")]
+[node name="BigCoin3" parent="Items" instance=ExtResource("3_15mrc")]
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 
-[connection signal="collected" from="Items/CollectibleBase" to="." method="_on_collectible_base_collected"]
-[connection signal="collected" from="Items/CollectibleBase2" to="." method="_on_collectible_base_2_collected"]
-[connection signal="collected" from="Items/CollectibleBase3" to="." method="_on_collectible_base_3_collected"]
+[connection signal="collected" from="Items/BigCoin1" to="." method="_on_collectible_base_collected"]
+[connection signal="collected" from="Items/BigCoin2" to="." method="_on_collectible_base_collected"]
+[connection signal="collected" from="Items/BigCoin3" to="." method="_on_collectible_base_collected"]

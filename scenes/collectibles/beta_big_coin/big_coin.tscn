@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvk6mthybt2hs"]
+
+[ext_resource type="PackedScene" uid="uid://bsxwalpytyj5e" path="res://scenes/collectibles/collectible_base/collectible_base.tscn" id="1_txsjx"]
+
+[node name="CollectibleBase" instance=ExtResource("1_txsjx")]

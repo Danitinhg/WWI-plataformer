@@ -11,7 +11,14 @@ func _ready():
 	# spawn del jugador
 	var spawn = $PlayerSpawn
 	player.global_position = spawn.global_position
-	
+
+	#Gestión de los coleccionables recogidos en el nivekl
+	var level_data = GameManager.levels[level_id]
+	var collected_in_level = PlayerData.get_collected_for_level(level_id)
+	for k in range(level_data.big_coins_collected.size()):
+		if k in collected_in_level:
+			level_data.big_coins_collected[k] = true
+
 	#quitar los items ya recogidos
 	hide_collected_items()
 
@@ -21,17 +28,12 @@ func hide_collected_items():
 			if PlayerData.is_collectible_collected(level_id, item.collectible_id):
 				item.queue_free()
 
-func _on_star_collected(collectible):
-	PlayerData.add_collectible(level_id, collectible.collectible_id)
-
-
+#Actualiza la información de los coleccionables
 func _on_collectible_base_collected(collectible: Variant) -> void:
-	pass
+	var level_data = GameManager.levels[level_id]
+	
+	if collectible.collectible_id >= 0 and collectible.collectible_id < level_data.big_coins_collected.size():
+		level_data.big_coins_collected[collectible.collectible_id] = true
+		print("Moneda %s del nivel %s recogida" % [collectible.collectible_id, level_id])
 
-
-func _on_collectible_base_2_collected(collectible: Variant) -> void:
-	pass
-
-
-func _on_collectible_base_3_collected(collectible: Variant) -> void:
-	pass
+	print("Se conecto la señal para: " + collectible.name)

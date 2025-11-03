@@ -8,4 +8,3 @@ class_name LevelData
 @export var abilities_in_level: Array[String] = []
 @export_multiline var description: String = ""
 @export var collectibles: Array[bool] = [false, false, false]
-
