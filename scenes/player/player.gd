@@ -45,6 +45,10 @@ var ability_in_control: bool = false
 #Sprite del player
 @onready var spriteA : AnimatedSprite2D = $AnimatedSprite2D
 
+#Raycasts para corner correction
+@onready var corner_ray_left: RayCast2D = $CornerRayLeft
+@onready var corner_ray_right: RayCast2D = $CornerRayRight
+
 func _ready():
 	add_to_group("player")
 	load_level_ability()
@@ -85,8 +89,7 @@ func _physics_process(delta: float):
 	handle_abilities(delta)
 	handle_horizontal_movement(delta)
 	update_animation()
-	
-	move_and_slide()
+	apply_movement_and_collisions(velocity)
 
 # Aplicar gravedad
 func handle_gravity(delta: float):
@@ -179,6 +182,27 @@ func handle_horizontal_movement(delta: float):
 		velocity.x = move_toward(velocity.x, direction * speed, accel * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, fric * delta)
+
+func handle_corner_correction(pre_slide_velocity: Vector2):
+	if pre_slide_velocity.y < 0.0 and is_on_ceiling():
+		var nudge_amount = 2
+
+		var left_is_clear = not corner_ray_left.is_colliding()
+		var right_is_clear = not corner_ray_right.is_colliding()
+
+		if left_is_clear and not right_is_clear:
+			global_position.x -= nudge_amount
+			velocity.y = pre_slide_velocity.y
+			return
+			
+		if right_is_clear and not left_is_clear:
+			global_position.x += nudge_amount
+			velocity.y = pre_slide_velocity.y
+			return
+
+func apply_movement_and_collisions(pre_slide_velocity: Vector2):
+	move_and_slide()
+	handle_corner_correction(pre_slide_velocity)
 
 func handle_player_movement(delta: float):
 	if not ability_in_control:
