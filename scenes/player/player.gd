@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var speed: float = 100.0
 @export var acceleration: float = 250.0
 @export var friction: float = 800.0
+@export_group("Movimeinto aereo")
+@export var air_acceleration: float = 500.0
+@export var air_friction: float = 100.0
 
 #Salto
 @export_group("Salto")
@@ -159,11 +162,18 @@ func start_spin():
 # Movimiento horizontal
 func handle_horizontal_movement(delta: float):
 	var direction = Input.get_axis("ui_left", "ui_right")
+
+	var accel: float = acceleration
+	var fric: float = friction
+
+	if not is_on_floor():
+		accel = air_acceleration
+		fric = air_friction
 	
 	if direction != 0.0:
-		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+		velocity.x = move_toward(velocity.x, direction * speed, accel * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0.0, friction * delta)
+		velocity.x = move_toward(velocity.x, 0.0, fric * delta)
 
 func handle_player_movement(delta: float):
 	if not ability_in_control:
