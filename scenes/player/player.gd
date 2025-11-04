@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export_group("Movimeinto aereo")
 @export var air_acceleration: float = 500.0
 @export var air_friction: float = 100.0
+@export var air_turn_acceleration: float = 1200.0
 
 #Salto
 @export_group("Salto")
@@ -167,7 +168,11 @@ func handle_horizontal_movement(delta: float):
 	var fric: float = friction
 
 	if not is_on_floor():
-		accel = air_acceleration
+		if direction != 0 and velocity.x != 0 and sign(direction) != sign(velocity.x):
+			accel = air_turn_acceleration
+		else:
+			accel = air_acceleration
+
 		fric = air_friction
 	
 	if direction != 0.0:
