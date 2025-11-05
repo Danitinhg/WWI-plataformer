@@ -37,6 +37,11 @@ var can_spin: bool = false
 var coyote_time_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
 
+#Corner Correction
+@export_group("Corner Correction")
+@export var corner_correction_enabled: bool = true
+@export var corner_correction_max_distance: int = 7
+
 # Habilidades de los niveles
 var abilities: Array[AbilityBase] = []
 var current_ability_index: int = 0
@@ -44,10 +49,6 @@ var ability_in_control: bool = false
 
 #Sprite del player
 @onready var spriteA : AnimatedSprite2D = $AnimatedSprite2D
-
-#Raycasts para corner correction
-@onready var corner_ray_left: RayCast2D = $CornerRayLeft
-@onready var corner_ray_right: RayCast2D = $CornerRayRight
 
 func _ready():
 	add_to_group("player")
@@ -183,26 +184,59 @@ func handle_horizontal_movement(delta: float):
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, fric * delta)
 
-func handle_corner_correction(pre_slide_velocity: Vector2):
-	if pre_slide_velocity.y < 0.0 and is_on_ceiling():
-		var nudge_amount = 2
+func handle_corner_correction(pre_slide_velocity: Vector2) -> bool:
+	if not corner_correction_enabled: 
+		return false
 
-		var left_is_clear = not corner_ray_left.is_colliding()
-		var right_is_clear = not corner_ray_right.is_colliding()
+	if pre_slide_velocity.y >= 0:
+		return false
 
-		if left_is_clear and not right_is_clear:
-			global_position.x -= nudge_amount
-			velocity.y = pre_slide_velocity.y
-			return
-			
-		if right_is_clear and not left_is_clear:
-			global_position.x += nudge_amount
-			velocity.y = pre_slide_velocity.y
-			return
+	var space_state = get_world_2d().direct_space_state
+	var shape = $CollisionShape2D.shape
+	
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.shape = shape
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	query.collision_mask = self.collision_mask
+
+	var moving_left = pre_slide_velocity.x < -1.0
+	var moving_right = pre_slide_velocity.x > 1.0
+	var try_left_first = moving_left or (not moving_right and not spriteA.flip_h) 
+
+	if try_left_first:
+		if try_corner_correction_direction(-1, space_state, query):
+			return true
+		if try_corner_correction_direction(1, space_state, query):
+			return true
+	else:
+		if try_corner_correction_direction(1, space_state, query):
+			return true
+		if try_corner_correction_direction(-1, space_state, query):
+			return true
+
+	return false
+
+func try_corner_correction_direction(direction: int, space_state: PhysicsDirectSpaceState2D, query: PhysicsShapeQueryParameters2D) -> bool:
+	
+	for k in range(1, corner_correction_max_distance + 1): 
+		query.transform = global_transform.translated(Vector2(direction * k, -1))
+		
+		if space_state.intersect_shape(query).is_empty():
+			global_position.x += direction * k
+			global_position.y -= 1
+			return true 
+
+	return false
 
 func apply_movement_and_collisions(pre_slide_velocity: Vector2):
 	move_and_slide()
-	handle_corner_correction(pre_slide_velocity)
+	
+	var collision = get_last_slide_collision()
+	if collision:
+		if collision.get_normal().y > 0.1:
+			if handle_corner_correction(pre_slide_velocity):
+				move_and_slide()
 
 func handle_player_movement(delta: float):
 	if not ability_in_control:
