@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnk1jo871e7b4"
-path.s3tc="res://.godot/imported/Run 06.png-0b51f90ec09a5b2451262ccc3fc3aade.s3tc.ctex"
+path="res://.godot/imported/Run 06.png-0b51f90ec09a5b2451262ccc3fc3aade.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/sprites/player/Pink Star/02-Run/Run 06.png"
-dest_files=["res://.godot/imported/Run 06.png-0b51f90ec09a5b2451262ccc3fc3aade.s3tc.ctex"]
+dest_files=["res://.godot/imported/Run 06.png-0b51f90ec09a5b2451262ccc3fc3aade.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0h2rxll71oru"
-path.s3tc="res://.godot/imported/Idle 05.png-233a6291d32f1db90659ca545b2c8ac2.s3tc.ctex"
+path="res://.godot/imported/Idle 05.png-233a6291d32f1db90659ca545b2c8ac2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/sprites/player/Pink Star/01-Idle/Idle 05.png"
-dest_files=["res://.godot/imported/Idle 05.png-233a6291d32f1db90659ca545b2c8ac2.s3tc.ctex"]
+dest_files=["res://.godot/imported/Idle 05.png-233a6291d32f1db90659ca545b2c8ac2.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
