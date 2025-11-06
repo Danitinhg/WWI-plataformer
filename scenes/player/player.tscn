@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://crojd4pydu8k3"]
+[gd_scene load_steps=48 format=3 uid="uid://crojd4pydu8k3"]
 
 [ext_resource type="Script" uid="uid://bv7r2px0kqnki" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://q04lwrqoqmtx" path="res://assets/sprites/player/Pink Star/01-Idle/Idle 01.png" id="2_dovo2"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://bvuac0iff8cne" path="res://assets/sprites/player/Pink Star/03-Jump/Jump 01.png" id="28_5xbmr"]
 [ext_resource type="Texture2D" uid="uid://immsfmpagxqw" path="res://assets/sprites/player/Pink Star/03-Jump/Jump 02.png" id="29_hir57"]
 [ext_resource type="Texture2D" uid="uid://bx5nqje26v10e" path="res://assets/sprites/player/Pink Star/03-Jump/Jump 03.png" id="30_7072n"]
+[ext_resource type="Texture2D" uid="uid://b0bv7vy0ggx3h" path="res://assets/sprites/player/Pink Star/12-Spin/Spin 01.png" id="45_rw8a5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ugbui"]
 animations = [{
@@ -230,6 +231,14 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("45_rw8a5")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttakn"]
@@ -242,7 +251,7 @@ script = ExtResource("1_8afob")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ugbui")
 animation = &"idle"
-frame = 7
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

@@ -22,12 +22,15 @@ var jump_was_pressed: bool = false
 
 # Giro en el aire
 @export_group("Spin")
-@export var spin_duration: float = 0.5
-@export var spin_gravity_multiplier: float = 0.3
+@export var spin_duration: float = 0.25
+@export var spin_boost: float = -100.0
+@export var spin_gravity_multiplier: float = 0.4
+@export var spin_horizontal_boost: float = 1.1
 
 var is_spinning: bool = false
 var spin_timer: float = 0.0
 var can_spin: bool = false
+var spin_rotation: float = 0.0
 
 # Coyote Time y Jump Buffer
 @export_group("Controles Avanzados")
@@ -86,11 +89,12 @@ func _physics_process(delta: float):
 	handle_gravity(delta)
 	update_timers(delta)
 	handle_jump()
-	handle_spin()
+	handle_spin(delta)
 	handle_abilities(delta)
 	handle_horizontal_movement(delta)
 	attempt_corner_correction()
 	update_animation()
+	update_spin_visual(delta)
 	move_and_slide()
 
 # Aplicar gravedad
@@ -112,13 +116,14 @@ func update_timers(delta: float):
 	if spin_timer > 0.0:
 		spin_timer -= delta
 		if spin_timer <= 0.0:
-			is_spinning = false
+			end_spin()
 	
 	# Coyote Time y estado cuando el payer esta en el suelo
 	if is_on_floor():
 		coyote_time_timer = coyote_time_duration
 		can_spin = false
-		is_spinning = false
+		if is_spinning:
+			end_spin()
 
 func handle_jump():
 	# Comprobar si hay que saltar
@@ -147,13 +152,12 @@ func check_landing():
 	was_in_air = is_in_air
 
 # Giro en el aire (spin)
-func handle_spin():
+func handle_spin(delta: float):
 	var can_perform_spin = (
 		Input.is_action_just_pressed("ui_accept") and
 		not is_on_floor() and
 		can_spin and
-		not is_spinning and
-		velocity.y > 0.0
+		not is_spinning
 	)
 	
 	if can_perform_spin:
@@ -163,7 +167,32 @@ func start_spin():
 	is_spinning = true
 	can_spin = false
 	spin_timer = spin_duration
+	spin_rotation = 0.0
+
+	velocity.y = spin_boost
+
+	if abs(velocity.x) > 10:
+		velocity.x *= spin_horizontal_boost
+
 	# Aqui poer los efectos de sonido o particulas al hacer el spin
+
+func end_spin():
+	is_spinning = false
+	spriteA.scale.x = 1.0
+	spriteA.rotation = 0.0
+
+func update_spin_visual(delta: float):
+	if not is_spinning:
+		return
+
+	var spin_speed = (PI * 1.0) / spin_duration
+	spin_rotation += spin_speed * delta
+	
+	var effect_paper_mario = abs(cos(spin_rotation))
+	spriteA.scale.x = lerp(0.1, 1.0, effect_paper_mario)
+
+	if spriteA.flip_h:
+		spriteA.scale.x = -abs(spriteA.scale.x)
 
 # Movimiento horizontal
 func handle_horizontal_movement(delta: float):
@@ -218,7 +247,7 @@ func handle_player_movement(delta: float):
 
 #Cambiar animación
 func update_animation():
-	if velocity.x != 0 and not ability_in_control:
+	if velocity.x != 0 and not ability_in_control and not is_spinning:
 		spriteA.flip_h = velocity.x > 0
 	
 	var new_animation = ""
@@ -229,6 +258,8 @@ func update_animation():
 
 	if ability_animation != "":
 		new_animation = ability_animation
+	elif is_spinning:
+		new_animation = "spin"
 	elif is_landing:
 		new_animation = "ground"
 	elif is_anticipating:
