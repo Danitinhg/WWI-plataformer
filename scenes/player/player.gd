@@ -89,7 +89,6 @@ func _physics_process(delta: float):
 	handle_gravity(delta)
 	update_timers(delta)
 	handle_jump()
-	handle_spin(delta)
 	handle_abilities(delta)
 	handle_horizontal_movement(delta)
 	attempt_corner_correction()
@@ -150,18 +149,6 @@ func check_landing():
 		get_tree().create_timer(0.15).timeout.connect(func():is_landing = false)
 
 	was_in_air = is_in_air
-
-# Giro en el aire (spin)
-func handle_spin(delta: float):
-	var can_perform_spin = (
-		Input.is_action_just_pressed("ui_accept") and
-		not is_on_floor() and
-		can_spin and
-		not is_spinning
-	)
-	
-	if can_perform_spin:
-		start_spin()
 
 func start_spin():
 	is_spinning = true
@@ -297,10 +284,14 @@ func cycle_ability():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_accept"):
-		if is_on_floor() or coyote_time_timer > 0.0:
+		var can_jump = is_on_floor() or coyote_time_timer > 0.0
+		
+		if can_jump:
 			jump_buffer_timer = jump_buffer_duration
 			jump_was_pressed = false
-
+		elif can_spin and not is_on_floor() and not is_spinning:
+			start_spin()
+			
 	if event.is_action_released("ui_accept"):
 		jump_was_pressed = false
 	
