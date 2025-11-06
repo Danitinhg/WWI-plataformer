@@ -40,7 +40,7 @@ var jump_buffer_timer: float = 0.0
 #Corner Correction
 @export_group("Corner Correction")
 @export var corner_correction_enabled: bool = true
-@export var corner_correction_max_distance: int = 7
+@export var corner_correction_amount: int = 8
 
 # Habilidades de los niveles
 var abilities: Array[AbilityBase] = []
@@ -89,8 +89,9 @@ func _physics_process(delta: float):
 	handle_spin()
 	handle_abilities(delta)
 	handle_horizontal_movement(delta)
+	attempt_corner_correction()
 	update_animation()
-	apply_movement_and_collisions(velocity)
+	move_and_slide()
 
 # Aplicar gravedad
 func handle_gravity(delta: float):
@@ -184,59 +185,31 @@ func handle_horizontal_movement(delta: float):
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, fric * delta)
 
-func handle_corner_correction(pre_slide_velocity: Vector2) -> bool:
-	if not corner_correction_enabled: 
-		return false
-
-	if pre_slide_velocity.y >= 0:
-		return false
-
-	var space_state = get_world_2d().direct_space_state
-	var shape = $CollisionShape2D.shape
+# Corner Correction
+func attempt_corner_correction():
+	if not corner_correction_enabled:
+		return
 	
-	var query = PhysicsShapeQueryParameters2D.new()
-	query.shape = shape
-	query.collide_with_areas = false
-	query.collide_with_bodies = true
-	query.collision_mask = self.collision_mask
-
-	var moving_left = pre_slide_velocity.x < -1.0
-	var moving_right = pre_slide_velocity.x > 1.0
-	var try_left_first = moving_left or (not moving_right and not spriteA.flip_h) 
-
-	if try_left_first:
-		if try_corner_correction_direction(-1, space_state, query):
-			return true
-		if try_corner_correction_direction(1, space_state, query):
-			return true
-	else:
-		if try_corner_correction_direction(1, space_state, query):
-			return true
-		if try_corner_correction_direction(-1, space_state, query):
-			return true
-
-	return false
-
-func try_corner_correction_direction(direction: int, space_state: PhysicsDirectSpaceState2D, query: PhysicsShapeQueryParameters2D) -> bool:
+	# Solo intentar corrección cuando está subiendo
+	if velocity.y >= 0:
+		return
 	
-	for k in range(1, corner_correction_max_distance + 1): 
-		query.transform = global_transform.translated(Vector2(direction * k, -1))
-		
-		if space_state.intersect_shape(query).is_empty():
-			global_position.x += direction * k
-			global_position.y -= 1
-			return true 
-
-	return false
-
-func apply_movement_and_collisions(pre_slide_velocity: Vector2):
-	move_and_slide()
+	var delta = get_physics_process_delta_time()
+	var motion = Vector2(0, velocity.y * delta)
 	
-	var collision = get_last_slide_collision()
-	if collision:
-		if collision.get_normal().y > 0.1:
-			if handle_corner_correction(pre_slide_velocity):
-				move_and_slide()
+	# Ver si hay colision verticalmente
+	if test_move(global_transform, motion):
+		for i in range(1, corner_correction_amount + 1):
+			for direction in [-1.0, 1.0]:
+				var offset = Vector2(i * direction, 0)
+				if not test_move(global_transform.translated(offset), motion):
+					# Aplicar la corrección
+					global_position.x += i * direction
+
+					if velocity.x * direction < 0:
+						velocity.x = 0
+					
+					return
 
 func handle_player_movement(delta: float):
 	if not ability_in_control:
