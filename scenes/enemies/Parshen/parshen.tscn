@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ioin07fngi3"]
+
+[ext_resource type="PackedScene" uid="uid://djtm2i81u5uxa" path="res://scenes/enemies/enemy_base.tscn" id="1_sjg8o"]
+
+[node name="Parshen" instance=ExtResource("1_sjg8o")]
+
+[node name="Timer" type="Timer" parent="." index="3"]
+
+[node name="Toge_Kyanon" type="Marker2D" parent="." index="4"]
