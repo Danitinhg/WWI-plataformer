@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4e4urp18gfsv"]
+[gd_scene load_steps=7 format=3 uid="uid://c4e4urp18gfsv"]
 
 [ext_resource type="Texture2D" uid="uid://cbckvtd1fri8k" path="res://assets/sprites/enemies/Seashell/Pearl Destroyed/1.png" id="1_jyafb"]
 [ext_resource type="Texture2D" uid="uid://bh3osnxmnmev1" path="res://assets/sprites/enemies/Seashell/Pearl Destroyed/2.png" id="2_tof2t"]
@@ -30,12 +30,15 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jyafb"]
+radius = 3.1622777
+
 [node name="Projectile" type="Area2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ocymi")
-animation = &"destroyed"
-frame = 1
-frame_progress = 0.8742572
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("CircleShape2D_jyafb")

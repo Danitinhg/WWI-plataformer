@@ -1,19 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://ioin07fngi3"]
+[gd_scene load_steps=13 format=3 uid="uid://ioin07fngi3"]
 
 [ext_resource type="PackedScene" uid="uid://djtm2i81u5uxa" path="res://scenes/enemies/enemy_base.tscn" id="1_sjg8o"]
 [ext_resource type="Script" uid="uid://dcluqmsasbrxf" path="res://scenes/enemies/Parshen/parshen.gd" id="2_ykogj"]
-[ext_resource type="Texture2D" uid="uid://c730e64q2l8gk" path="res://assets/sprites/enemies/Seashell/Seashell Bite/1.png" id="3_rkvfi"]
-[ext_resource type="Texture2D" uid="uid://k5mj718nv1hl" path="res://assets/sprites/enemies/Seashell/Seashell Bite/2.png" id="4_1po7r"]
-[ext_resource type="Texture2D" uid="uid://grj00vmemhtn" path="res://assets/sprites/enemies/Seashell/Seashell Bite/3.png" id="5_x72vg"]
-[ext_resource type="Texture2D" uid="uid://bsdfxp05ouufw" path="res://assets/sprites/enemies/Seashell/Seashell Bite/4.png" id="6_kh0le"]
-[ext_resource type="Texture2D" uid="uid://dodcenlq6mqaj" path="res://assets/sprites/enemies/Seashell/Seashell Bite/5.png" id="7_ps16o"]
-[ext_resource type="Texture2D" uid="uid://b6wqbt36qejpp" path="res://assets/sprites/enemies/Seashell/Seashell Bite/6.png" id="8_fhlsg"]
 [ext_resource type="Texture2D" uid="uid://b5w3g05hxuwgc" path="res://assets/sprites/enemies/Seashell/Seashell Idle/1.png" id="9_rstpj"]
-[ext_resource type="Texture2D" uid="uid://p0y60f7kwfa6" path="res://assets/sprites/enemies/Seashell/Seashell Opening/1.png" id="10_6lpbs"]
-[ext_resource type="Texture2D" uid="uid://bbstuvyx72xnt" path="res://assets/sprites/enemies/Seashell/Seashell Opening/2.png" id="11_w66l6"]
-[ext_resource type="Texture2D" uid="uid://dnp0n18jwyk8t" path="res://assets/sprites/enemies/Seashell/Seashell Opening/3.png" id="12_l0hw0"]
-[ext_resource type="Texture2D" uid="uid://0v05ww0ac8tk" path="res://assets/sprites/enemies/Seashell/Seashell Opening/4.png" id="13_nn4ck"]
-[ext_resource type="Texture2D" uid="uid://c4dug5cvexo0y" path="res://assets/sprites/enemies/Seashell/Seashell Opening/5.png" id="14_dku7w"]
 [ext_resource type="Texture2D" uid="uid://ccvos62o1dsk2" path="res://assets/sprites/enemies/Seashell/Seashell Fire/1.png" id="15_3wvou"]
 [ext_resource type="Texture2D" uid="uid://nro7hml4sf8d" path="res://assets/sprites/enemies/Seashell/Seashell Fire/2.png" id="16_rjm2l"]
 [ext_resource type="Texture2D" uid="uid://cd1usavh802rl" path="res://assets/sprites/enemies/Seashell/Seashell Fire/3.png" id="17_cdl8m"]
@@ -25,53 +14,10 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_rkvfi")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_1po7r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_x72vg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_kh0le")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_ps16o")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_fhlsg")
-}],
-"loop": true,
-"name": &"bite",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("9_rstpj")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_6lpbs")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_w66l6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_l0hw0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_nn4ck")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_dku7w")
-}],
-"loop": true,
-"name": &"open",
 "speed": 5.0
 }, {
 "frames": [{
@@ -98,17 +44,36 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1po7r"]
+size = Vector2(29, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkvfi"]
+size = Vector2(5.3999996, 1.0999999)
+
 [node name="Parshen" instance=ExtResource("1_sjg8o")]
 script = ExtResource("2_ykogj")
 projectile_scene = null
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="Toge_Kyanon" type="Marker2D" parent="." index="0"]
+position = Vector2(10, 10)
+
+[node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_urmk1")
-animation = &"open"
-frame_progress = 0.60498047
+animation = &"idle"
+flip_h = true
 
-[node name="Timer" type="Timer" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(-0.5, 8.5)
+shape = SubResource("RectangleShape2D_1po7r")
 
-[node name="Toge_Kyanon" type="Marker2D" parent="." index="4"]
+[node name="RayCast2D" parent="." index="3"]
+position = Vector2(-0.5, 8.5)
+
+[node name="Timer" type="Timer" parent="." index="4"]
 
 [node name="DetectionArea" type="Area2D" parent="." index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+position = Vector2(91.99999, 7)
+scale = Vector2(40, 40)
+shape = SubResource("RectangleShape2D_rkvfi")
