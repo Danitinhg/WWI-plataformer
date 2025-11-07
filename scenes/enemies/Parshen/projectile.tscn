@@ -1,3 +1,41 @@
-[gd_scene format=3 uid="uid://c4e4urp18gfsv"]
+[gd_scene load_steps=6 format=3 uid="uid://c4e4urp18gfsv"]
+
+[ext_resource type="Texture2D" uid="uid://cbckvtd1fri8k" path="res://assets/sprites/enemies/Seashell/Pearl Destroyed/1.png" id="1_jyafb"]
+[ext_resource type="Texture2D" uid="uid://bh3osnxmnmev1" path="res://assets/sprites/enemies/Seashell/Pearl Destroyed/2.png" id="2_tof2t"]
+[ext_resource type="Texture2D" uid="uid://bn3vwxqynq2xo" path="res://assets/sprites/enemies/Seashell/Pearl Destroyed/3.png" id="3_n0drp"]
+[ext_resource type="Texture2D" uid="uid://6qg8p423rw4k" path="res://assets/sprites/enemies/Seashell/Pearl Idle/1.png" id="4_t2y0v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ocymi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jyafb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tof2t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n0drp")
+}],
+"loop": true,
+"name": &"destroyed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t2y0v")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Projectile" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ocymi")
+animation = &"destroyed"
+frame = 1
+frame_progress = 0.8742572
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
