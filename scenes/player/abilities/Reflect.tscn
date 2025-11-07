@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5w7p2j2w2w2d"]
+[gd_scene load_steps=3 format=3 uid="uid://b5w7p2j2w2w2d"]
 
 [ext_resource type="Script" uid="uid://bcjh0gqvdn1ou" path="res://scenes/player/abilities/Reflect.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://dasbiyeki0x6a" path="res://assets/sprites/player/abilities/Reflect/Shield 01.png" id="2_pw6eh"]
 
 [node name="Reflect" type="Node2D"]
 script = ExtResource("1_abcde")
@@ -12,3 +13,7 @@ script = ExtResource("1_abcde")
 [node name="ShieldVisual" type="Polygon2D" parent="."]
 color = Color(0, 0.6, 1, 0.5)
 polygon = PackedVector2Array(0, -30, 10, -28, 18, -22, 24, -14, 28, -5, 30, 0, 28, 5, 24, 14, 18, 22, 10, 28, 0, 30)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(14, 0)
+texture = ExtResource("2_pw6eh")

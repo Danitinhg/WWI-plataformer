@@ -105,8 +105,10 @@ projectile_scene = null
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_urmk1")
 animation = &"open"
-frame_progress = 0.11900708
+frame_progress = 0.60498047
 
 [node name="Timer" type="Timer" parent="." index="3"]
 
 [node name="Toge_Kyanon" type="Marker2D" parent="." index="4"]
+
+[node name="DetectionArea" type="Area2D" parent="." index="5"]
