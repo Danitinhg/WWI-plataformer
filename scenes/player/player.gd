@@ -98,10 +98,13 @@ func _physics_process(delta: float):
 
 # Aplicar gravedad
 func handle_gravity(delta: float):
+	if ability_in_control:
+		return
+
 	if is_on_floor():
 		velocity.y = 0.0
 		return
-	
+
 	var gravity_multiplier = spin_gravity_multiplier if is_spinning else 1.0
 	velocity.y += gravity * gravity_multiplier * delta
 
@@ -183,6 +186,9 @@ func update_spin_visual(delta: float):
 
 # Movimiento horizontal
 func handle_horizontal_movement(delta: float):
+	if ability_in_control:
+		return
+
 	var direction = Input.get_axis("ui_left", "ui_right")
 
 	var accel: float = acceleration
@@ -195,7 +201,7 @@ func handle_horizontal_movement(delta: float):
 			accel = air_acceleration
 
 		fric = air_friction
-	
+
 	if direction != 0.0:
 		velocity.x = move_toward(velocity.x, direction * speed, accel * delta)
 	else:
@@ -289,7 +295,7 @@ func _unhandled_input(event):
 		if can_jump:
 			jump_buffer_timer = jump_buffer_duration
 			jump_was_pressed = false
-		elif can_spin and not is_on_floor() and not is_spinning:
+		elif can_spin and not is_on_floor() and not is_spinning and not ability_in_control:
 			start_spin()
 			
 	if event.is_action_released("ui_accept"):
