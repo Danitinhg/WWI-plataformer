@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d2j7vh80v06i2"]
+[gd_scene load_steps=2 format=3 uid="uid://d2j7vh80v06i2"]
+
+[ext_resource type="PackedScene" uid="uid://s4joiixvs22j" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="1_pause"]
 
 [node name="LevelBase" type="Node2D"]
 
@@ -10,3 +12,5 @@ format = 2
 [node name="Items" type="Node2D" parent="."]
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
+
+[node name="PauseMenu" parent="." instance=ExtResource("1_pause")]
