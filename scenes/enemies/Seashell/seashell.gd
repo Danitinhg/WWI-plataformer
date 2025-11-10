@@ -1,31 +1,54 @@
 extends CharacterBody2D
 
 @export var jump_force: float = -400.0
+@export var jump_horizontal_speed: float = 150.0
 @export var jump_interval: float = 2.0
 @export var gravity: float = 980.0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var jump_timer: Timer = $JumpTimer
+@onready var raycast: RayCast2D = $RayCast2D
+
+var direction: int = 1
 
 func _ready():
 	add_to_group("enemies")
 
-	jump_timer.wait_time = jump_interval
-	jump_timer.timeout.connect(_on_jump_timer_timeout)
-	jump_timer.start()
+	if jump_timer:
+		jump_timer.wait_time = jump_interval
+		jump_timer.timeout.connect(_on_jump_timer_timeout)
+		jump_timer.start()
+	else:
+		print("ERROR: JumpTimer no encontrado!")
+
+	if raycast:
+		raycast.target_position = Vector2(15 * direction, 0)
 
 	if sprite:
-		sprite.play("Idle")
+		sprite.play("idle")
+		sprite.flip_h = direction < 0
 
 func _physics_process(delta: float):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
-		velocity.y = 0
+		velocity.x = move_toward(velocity.x, 0, 500 * delta)
+
+	if raycast:
+		if raycast.is_colliding():
+			change_direction()
 
 	move_and_slide()
+
+	if is_on_wall():
+		change_direction()
+
+func change_direction():
+	direction *= -1
+	sprite.flip_h = direction < 0
+	raycast.target_position = Vector2(15 * direction, 0)
 
 func _on_jump_timer_timeout():
 	if is_on_floor():
 		velocity.y = jump_force
-		#Agregar animacion de salto
+		velocity.x = direction * jump_horizontal_speed
