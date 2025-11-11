@@ -38,4 +38,4 @@ func _on_restart_pressed():
 
 func _on_main_menu_pressed():
 	get_tree().paused = false
-	GameManager.return_to_level_selector()
+	GameManager.return_to_main_menu()

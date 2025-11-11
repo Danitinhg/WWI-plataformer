@@ -44,6 +44,11 @@ func return_to_level_selector():
 	current_level_ablities.clear()
 	get_tree().change_scene_to_file.call_deferred("res://scenes/ui/level_selector/level_selector.tscn")
 
+func return_to_main_menu():
+	current_level = -1
+	current_level_ablities.clear()
+	get_tree().change_scene_to_file.call_deferred("res://scenes/ui/main_menu/main_menu.tscn")
+
 func get_level_abilities() -> Array[String]:
 	return current_level_ablities
 	
