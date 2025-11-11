@@ -44,6 +44,10 @@ text = "Reanudar"
 layout_mode = 2
 text = "Reiniciar Nivel"
 
+[node name="OptionsButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Opciones"
+
 [node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Menu Principal"
