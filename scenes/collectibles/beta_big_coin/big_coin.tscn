@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvk6mthybt2hs"]
 
 [ext_resource type="PackedScene" uid="uid://bsxwalpytyj5e" path="res://scenes/collectibles/collectible_base/collectible_base.tscn" id="1_txsjx"]
-[ext_resource type="Texture2D" uid="uid://dp1y70iu344rb" path="res://assets/Treasure Hunters/Pirate Treasure/Sprites/Blue Diamond/01.png" id="2_speti"]
+[ext_resource type="Texture2D" uid="uid://dp1y70iu344rb" path="res://assets/items/gems/Blue Diamond/01.png" id="2_speti"]
 
 [node name="CollectibleBase" instance=ExtResource("1_txsjx")]
 
