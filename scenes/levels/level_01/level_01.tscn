@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://cq7ygttaymho8"]
+[gd_scene load_steps=8 format=4 uid="uid://cq7ygttaymho8"]
 
 [ext_resource type="Script" uid="uid://88smftbebkju" path="res://scenes/levels/level_01/level_01.gd" id="2_15mrc"]
 [ext_resource type="Texture2D" uid="uid://bh21b0e1m3p1d" path="res://icon.svg" id="2_h7puh"]
 [ext_resource type="PackedScene" uid="uid://bvk6mthybt2hs" path="res://scenes/collectibles/beta_big_coin/big_coin.tscn" id="3_15mrc"]
+[ext_resource type="PackedScene" uid="uid://s4joiixvs22j" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="4_pause"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fi7ee"]
 
@@ -103,6 +104,8 @@ position = Vector2(836, -42)
 collectible_id = 2
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause")]
 
 [connection signal="collected" from="Items/BigCoin1" to="." method="_on_collectible_base_collected"]
 [connection signal="collected" from="Items/BigCoin2" to="." method="_on_collectible_base_collected"]

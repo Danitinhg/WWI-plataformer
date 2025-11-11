@@ -5,3 +5,4 @@ export/
 *.mono
 *.user
 *.godot
+nul

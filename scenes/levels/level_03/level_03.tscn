@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkr745tr7kxm3"]
+[gd_scene load_steps=4 format=3 uid="uid://dkr745tr7kxm3"]
 
 [ext_resource type="Script" uid="uid://bt7tjqqvxtqol" path="res://scenes/levels/level_03/level_03.gd" id="2_hc64q"]
 [ext_resource type="PackedScene" uid="uid://bvk6mthybt2hs" path="res://scenes/collectibles/beta_big_coin/big_coin.tscn" id="2_ulqsn"]
+[ext_resource type="PackedScene" uid="uid://s4joiixvs22j" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="3_pause"]
 
 [node name="Level03" type="Node2D"]
 script = ExtResource("2_hc64q")
@@ -21,6 +22,8 @@ collectible_id = 1
 collectible_id = 2
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_pause")]
 
 [connection signal="collected" from="Items/BigCoin1" to="." method="_on_collectible_base_collected"]
 [connection signal="collected" from="Items/BigCoin2" to="." method="_on_collectible_base_collected"]
