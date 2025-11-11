@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyoxbqehwwb50"]
+
+[ext_resource type="Texture2D" uid="uid://csngb3lhr1mmb" path="res://assets/sprites/tin/idle/Idle 01.png" id="1_hy0i2"]
+[ext_resource type="Texture2D" uid="uid://da4o4cpxti5ad" path="res://assets/sprites/tin/idle/Idle 02.png" id="2_fr8dl"]
+[ext_resource type="Texture2D" uid="uid://dxclxjs0mr4ij" path="res://assets/sprites/tin/talk/Talk 01.png" id="3_q3d03"]
+[ext_resource type="Texture2D" uid="uid://ca4de12drdiee" path="res://assets/sprites/tin/talk/Talk 02.png" id="4_ysdvk"]
+[ext_resource type="Texture2D" uid="uid://dkwfk07kvpa1m" path="res://assets/sprites/tin/talk/Talk 03.png" id="5_3qf0k"]
+[ext_resource type="Texture2D" uid="uid://dc76dnnv11ux4" path="res://assets/sprites/tin/talk/Talk 04.png" id="6_i5rvg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_px81w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hy0i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fr8dl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q3d03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ysdvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3qf0k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_i5rvg")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 10.0
+}]
+
+[node name="Tin" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_px81w")
+animation = &"talk"
