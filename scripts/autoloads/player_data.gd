@@ -1,4 +1,5 @@
 extends Node
+const DEBUG_MODE = true
 
 var completed_levels: Array[int] = []
 var collected_items: Dictionary = {}
@@ -6,6 +7,10 @@ var collected_items: Dictionary = {}
 const SAVE_PATH = "user://savegame.save"
 
 func save_game():
+	if DEBUG_MODE:
+		print("Guardado desactivado")
+		return
+
 	var save_dict = {
 		"completed_levels": completed_levels,
 		"collected_items": collected_items
@@ -15,6 +20,10 @@ func save_game():
 	save_file.close()
 
 func load_game():
+	if DEBUG_MODE:
+		print("Carga desactivado")
+		return
+
 	if not FileAccess.file_exists(SAVE_PATH):
 		return
 	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
