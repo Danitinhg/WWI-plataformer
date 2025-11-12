@@ -54,6 +54,20 @@ var abilities: Array[AbilityBase] = []
 var current_ability_index: int = 0
 var ability_in_control: bool = false
 
+#Sistema de vida
+@export_group("Sistema de vida")
+@export var max_health: int = 3
+@export var invincibility_duration: float = 1.5
+@export var knockback_force: float = 300.0
+
+var current_health: int = 3
+var is_invincible: bool = false
+var is_dead: bool = false
+
+signal health_changed(new_health: int, max_health: int)
+signal player_damaged(damage: int)
+signal player_died
+
 #Sprite del player
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
