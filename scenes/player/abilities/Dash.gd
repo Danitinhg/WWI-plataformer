@@ -15,7 +15,7 @@ func physics_update(delta: float) -> bool:
 		dash_timer -= delta
 		
 		# Con el dahs activo anulamos velocidad del jugador
-		var dash_direction = 1 if player.get_node("AnimatedSprite2D").flip_h else -1
+		var dash_direction = player.get_facing_direction()
 		player.velocity.x = dash_direction * dash_speed
 		player.velocity.y = 0  # Anulamos la gravedad del payer
 		

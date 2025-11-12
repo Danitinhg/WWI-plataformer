@@ -68,7 +68,8 @@ func _on_restart_pressed():
 	get_tree().reload_current_scene()
 
 func _on_options_pressed():
-	pass
+	#Implementar menu de opciones
+	print("Opciones aun no implementadas")
 
 func _on_main_menu_pressed():
 	get_tree().paused = false

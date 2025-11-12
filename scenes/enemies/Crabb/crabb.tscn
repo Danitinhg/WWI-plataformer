@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://khd1n36t552w" path="res://assets/enemies/Crabby/02-Run/Run 05.png" id="6_xewwx"]
 [ext_resource type="Texture2D" uid="uid://b5vj57jr8rd2j" path="res://assets/enemies/Crabby/07-Attack/Attack 02.png" id="7_02bes"]
 [ext_resource type="Texture2D" uid="uid://cng8d3f6sq7wu" path="res://assets/enemies/Crabby/02-Run/Run 06.png" id="7_wc3g4"]
-[ext_resource type="Script" uid="uid://31c7ey82080d" path="res://scenes/enemies/Crabb/crabb.gd" id="8_argbl"]
+[ext_resource type="Script" uid="uid://31c7ey82080d" path="res://scenes/enemies/crabb/crabb.gd" id="8_argbl"]
 [ext_resource type="Texture2D" uid="uid://bjqm4fhr37r6t" path="res://assets/enemies/Crabby/07-Attack/Attack 03.png" id="8_m27kh"]
 [ext_resource type="Texture2D" uid="uid://bswq0pk6molcs" path="res://assets/enemies/Crabby/07-Attack/Attack 04.png" id="9_xgqbv"]
 [ext_resource type="Texture2D" uid="uid://cmeo6ujokrnr2" path="res://assets/enemies/Crabby/04-Fall/Fall 01.png" id="10_movk2"]

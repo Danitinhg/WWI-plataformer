@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://88smftbebkju" path="res://scenes/levels/level_01/level_01.gd" id="2_15mrc"]
 [ext_resource type="Texture2D" uid="uid://bh21b0e1m3p1d" path="res://icon.svg" id="2_h7puh"]
-[ext_resource type="PackedScene" uid="uid://bvk6mthybt2hs" path="res://scenes/collectibles/beta_big_coin/big_coin.tscn" id="3_15mrc"]
+[ext_resource type="PackedScene" uid="uid://bvk6mthybt2hs" path="res://scenes/collectibles/big_coin/big_coin.tscn" id="3_15mrc"]
 [ext_resource type="PackedScene" uid="uid://s4joiixvs22j" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="4_pause"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fi7ee"]

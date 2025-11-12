@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://vu1raovqrwuf"]
 
 [ext_resource type="PackedScene" uid="uid://djtm2i81u5uxa" path="res://scenes/enemies/enemy_base.tscn" id="1_8vkrd"]
-[ext_resource type="Script" uid="uid://ctypqkk24a7pa" path="res://scenes/enemies/Samehader/samehader.gd" id="2_xuojd"]
+[ext_resource type="Script" uid="uid://ctypqkk24a7pa" path="res://scenes/enemies/samehader/samehader.gd" id="2_xuojd"]
 [ext_resource type="Texture2D" uid="uid://cr5k7dgknpxp8" path="res://assets/enemies/Fierce Tooth/06-Anticipation/Anticipation 01.png" id="3_1tj6x"]
 [ext_resource type="Texture2D" uid="uid://cny66564x5hwj" path="res://assets/enemies/Fierce Tooth/02-Run/Run 01.png" id="3_2c5it"]
 [ext_resource type="Texture2D" uid="uid://354ernmgy0uv" path="res://assets/enemies/Fierce Tooth/02-Run/Run 02.png" id="4_4dybn"]

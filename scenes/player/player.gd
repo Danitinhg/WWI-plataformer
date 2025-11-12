@@ -10,6 +10,10 @@ extends CharacterBody2D
 @export var air_friction: float = 100.0
 @export var air_turn_acceleration: float = 1200.0
 
+const max_gravity_multiplier: float = 2.0
+const anticipation_duration: float = 0.08
+const landing_duration: float = 0.15
+
 #Salto
 @export_group("Salto")
 @export var jump_velocity: float = -350.0
@@ -51,7 +55,7 @@ var current_ability_index: int = 0
 var ability_in_control: bool = false
 
 #Sprite del player
-@onready var spriteA : AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
 	add_to_group("player")
@@ -108,7 +112,7 @@ func handle_gravity(delta: float):
 	var gravity_multiplier = spin_gravity_multiplier if is_spinning else 1.0
 	velocity.y += gravity * gravity_multiplier * delta
 
-	velocity.y = min(velocity.y, gravity * 2.0)
+	velocity.y = min(velocity.y, gravity * max_gravity_multiplier)
 
 # Actualizar temporizadores
 func update_timers(delta: float):
@@ -142,14 +146,14 @@ func perform_jump():
 	jump_was_pressed = true
 
 	is_anticipating = true
-	get_tree().create_timer(0.08).timeout.connect(func():is_anticipating = false)
+	get_tree().create_timer(anticipation_duration).timeout.connect(func():is_anticipating = false)
 
 func check_landing():
 	var is_in_air = not is_on_floor()
 	
 	if was_in_air and not is_in_air and not is_landing:
 		is_landing = true
-		get_tree().create_timer(0.15).timeout.connect(func():is_landing = false)
+		get_tree().create_timer(landing_duration).timeout.connect(func():is_landing = false)
 
 	was_in_air = is_in_air
 
@@ -168,8 +172,8 @@ func start_spin():
 
 func end_spin():
 	is_spinning = false
-	spriteA.scale.x = 1.0
-	spriteA.rotation = 0.0
+	animated_sprite.scale.x = 1.0
+	animated_sprite.rotation = 0.0
 
 func update_spin_visual(delta: float):
 	if not is_spinning:
@@ -179,10 +183,10 @@ func update_spin_visual(delta: float):
 	spin_rotation += spin_speed * delta
 	
 	var effect_paper_mario = abs(cos(spin_rotation))
-	spriteA.scale.x = lerp(0.1, 1.0, effect_paper_mario)
+	animated_sprite.scale.x = lerp(0.1, 1.0, effect_paper_mario)
 
-	if spriteA.flip_h:
-		spriteA.scale.x = -abs(spriteA.scale.x)
+	if animated_sprite.flip_h:
+		animated_sprite.scale.x = -abs(animated_sprite.scale.x)
 
 # Movimiento horizontal
 func handle_horizontal_movement(delta: float):
@@ -216,8 +220,8 @@ func attempt_corner_correction():
 	if velocity.y >= 0:
 		return
 	
-	var delta = get_physics_process_delta_time()
-	var motion = Vector2(0, velocity.y * delta)
+	var dt = get_physics_process_delta_time()
+	var motion = Vector2(0, velocity.y * dt)
 	
 	# Ver si hay colision verticalmente
 	if test_move(global_transform, motion):
@@ -233,15 +237,10 @@ func attempt_corner_correction():
 					
 					return
 
-func handle_player_movement(delta: float):
-	if not ability_in_control:
-		handle_gravity(delta)
-		handle_horizontal_movement(delta)
-
 #Cambiar animación
 func update_animation():
 	if velocity.x != 0 and not ability_in_control and not is_spinning:
-		spriteA.flip_h = velocity.x > 0
+		animated_sprite.flip_h = velocity.x > 0
 	
 	var new_animation = ""
 	var ability_animation = ""
@@ -268,8 +267,8 @@ func update_animation():
 		else:
 			new_animation = "fall"
 		
-	if spriteA.animation != new_animation:
-		spriteA.play(new_animation)
+	if animated_sprite.animation != new_animation:
+		animated_sprite.play(new_animation)
 	
 # Gestión de habilidades
 func handle_abilities(delta: float):
@@ -331,3 +330,6 @@ func collect_item(collectible: Collectible):
 	# Llamar al método collect() dl coleccionable para que se destruya
 	if collectible.has_method("collect"):
 		collectible.collect()
+
+func get_facing_direction() -> int:
+	return 1 if animated_sprite.flip_h else -1

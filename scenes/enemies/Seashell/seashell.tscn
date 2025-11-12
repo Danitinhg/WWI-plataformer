@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://q2it0pm04as4"]
 
-[ext_resource type="Script" uid="uid://dsogxb2cqh1ao" path="res://scenes/enemies/Seashell/seashell.gd" id="1_to1wt"]
+[ext_resource type="Script" uid="uid://dsogxb2cqh1ao" path="res://scenes/enemies/seashell/seashell.gd" id="1_to1wt"]
 [ext_resource type="Texture2D" uid="uid://b5w3g05hxuwgc" path="res://assets/enemies/Seashell/Seashell Idle/1.png" id="2_c3gau"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m4x7"]
