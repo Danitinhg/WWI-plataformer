@@ -23,7 +23,7 @@ func update_animation(input_dir: Vector2):
             animated_sprite_3d.play("idle")
 
     # Girar el sprite horizontalmente según la dirección
-    if input_dir.x > -0.1:
+    if input_dir.x > 0.1:
         animated_sprite_3d.flip_h = true
-    elif input_dir.x < 0.1:
-        animated_sprite_3d.flip_h = false
+    elif input_dir.x < -0.1:
+      animated_sprite_3d.flip_h = false

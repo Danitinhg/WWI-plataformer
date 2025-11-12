@@ -93,7 +93,7 @@ tile_set = SubResource("TileSet_lb6o6")
 [node name="Items" type="Node2D" parent="."]
 
 [node name="BigCoin1" parent="Items" instance=ExtResource("3_15mrc")]
-position = Vector2(406, -109)
+position = Vector2(409, -43)
 
 [node name="BigCoin2" parent="Items" instance=ExtResource("3_15mrc")]
 position = Vector2(1401, -108)

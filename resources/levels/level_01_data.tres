@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_8rrjh")
+level_id = 0
 level_name = "Nivel 1"
 scene_path = "res://scenes/levels/level_01/level_01.tscn"
 abilities_in_level = Array[String](["Dash"])
