@@ -6,6 +6,7 @@ signal collected(collectible)
 @export var collectible_id: int = 0
 
 func _ready():
+    add_to_group("collectibles")
     body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body):

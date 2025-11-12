@@ -9,6 +9,7 @@ var current_level_ablities: Array[String] = []
 
 func _ready():
 	load_levels()
+	PlayerData.load_game()
 	
 func load_levels():
 	levels = [
@@ -27,6 +28,10 @@ func load_level(level_id: int):
 		return
 	#🗣️🔥 Solo para el nivel de prueba🗣️🔥
 
+	if level_id < 0 or level_id >= levels.size():
+		push_error("Invalid level_id: " + str(level_id))
+		return
+
 	var level_data = levels[level_id]
 	current_level_ablities = level_data.abilities_in_level.duplicate()
 	get_tree().change_scene_to_file.call_deferred(level_data.scene_path)
@@ -35,7 +40,12 @@ func complete_level():
 	if current_level == -1:
 		return
 
-	levels[current_level].completed = true
+	if current_level < 0 or current_level >= levels.size():
+		return
+
+	if current_level not in PlayerData.completed_levels:
+		PlayerData.completed_levels.append(current_level)
+
 	level_completed.emit(current_level)
 	PlayerData.save_game()
 
