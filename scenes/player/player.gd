@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+#Señales
+signal health_changed(new_health: int, max_health: int)
+signal player_damaged(damage: int)
+signal player_died
+
 # Movimiento básico del player
 @export_group("Movimiento")
 @export var speed: float = 100.0
@@ -64,15 +69,12 @@ var current_health: int = 3
 var is_invincible: bool = false
 var is_dead: bool = false
 
-signal health_changed(new_health: int, max_health: int)
-signal player_damaged(damage: int)
-signal player_died
-
 #Sprite del player
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
 	add_to_group("player")
+	current_health = max_health
 	load_level_ability()
 
 func load_level_ability():
