@@ -75,6 +75,7 @@ var is_dead: bool = false
 func _ready():
 	add_to_group("player")
 	current_health = max_health
+	health_changed.emit(current_health, max_health)
 	load_level_ability()
 
 func load_level_ability():
@@ -115,6 +116,10 @@ func _physics_process(delta: float):
 	update_animation()
 	update_spin_visual(delta)
 	move_and_slide()
+
+	#Temporal: T para probar el daño
+	if Input.is_action_just_pressed("test_damage"):
+		take_damage(1,Vector2(-100, -200))
 
 # Aplicar gravedad
 func handle_gravity(delta: float):
@@ -349,3 +354,45 @@ func collect_item(collectible: Collectible):
 
 func get_facing_direction() -> int:
 	return 1 if animated_sprite.flip_h else -1
+
+func take_damage(damage: int, knockback_direction: Vector2 = Vector2.ZERO):
+	if is_dead or is_invincible:
+		return
+
+	#Bjar vida
+	current_health -= damage
+	current_health = max(current_health, 0)
+
+	print("Player recibio daño. Vida: ", current_health, "/", max_health)
+
+	player_damaged.emit(damage)
+	health_changed.emit(current_health, max_health)
+
+	if knockback_direction != Vector2.ZERO:
+		velocity = knockback_direction.normalized() * knockback_force
+
+	_activate_invincibility()
+
+	if current_health <= 0:
+		die()
+
+func _activate_invincibility():
+	is_invincible = true
+
+	var timer := get_tree().create_timer(invincibility_duration)
+	timer.timeout.connect(_on_invincibility_timeout)
+
+	print("Invencibilidad activada por ", invincibility_duration, " segundos")
+
+func _on_invincibility_timeout():
+	is_invincible = false
+	print("Invencibilidad desactivada")
+
+func die():
+	if is_dead:
+		return
+
+	is_dead = true
+	player_died.emit()
+
+	print("Player muerto")
