@@ -4,12 +4,13 @@ class_name EnemyBase
 const SPEED = 150.0
 
 var move_direction = 1
+var can_walk = true
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var wall_raycast = $RayCast2D
 
 func _ready():
-	pass
+	add_to_group("enemies")
 
 func _physics_process(delta):
 	if animated_sprite:
@@ -18,7 +19,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 
-	velocity.x = move_direction * SPEED
+	if can_walk:
+		velocity.x = move_direction * SPEED
 
 	move_and_slide()
 

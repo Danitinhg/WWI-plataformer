@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends EnemyBase
 
 @export var jump_force: float = -400.0
 @export var jump_horizontal_speed: float = 150.0
@@ -12,7 +12,8 @@ extends CharacterBody2D
 var direction: int = 1
 
 func _ready():
-	add_to_group("enemies")
+	super._ready()
+	can_walk = false
 
 	if jump_timer:
 		jump_timer.wait_time = jump_interval
