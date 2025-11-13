@@ -71,12 +71,16 @@ var is_dead: bool = false
 
 #Sprite del player
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+@onready var hurt_box: Area2D = $HurtBox
 
 func _ready():
 	add_to_group("player")
 	current_health = max_health
 	health_changed.emit(current_health, max_health)
 	load_level_ability()
+
+	if hurt_box:
+		hurt_box.body_entered.connect(_on_hurt_box_body_entered)
 
 func load_level_ability():
 	var level_ability_names = GameManager.get_level_abilities()
@@ -396,3 +400,11 @@ func die():
 	player_died.emit()
 
 	print("Player muerto")
+
+func _on_hurt_box_body_entered(body: Node2D):
+	if body.is_in_group("enemies") and not is_invincible and not is_dead:
+		var knockback_dir := global_position - body.global_position
+
+		take_damage(1, knockback_dir)
+
+		print("Colisión con enemigo: ", body.name)

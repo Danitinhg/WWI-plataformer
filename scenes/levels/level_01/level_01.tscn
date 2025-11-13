@@ -79,7 +79,7 @@ texture = ExtResource("2_h7puh")
 7:7/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_lb6o6"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 4
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_fi7ee")
 sources/0 = SubResource("TileSetAtlasSource_7mo7t")
 
@@ -112,3 +112,4 @@ collectible_id = 2
 
 [node name="Crabb" parent="." instance=ExtResource("6_7mo7t")]
 position = Vector2(1260, 1)
+collision_layer = 1

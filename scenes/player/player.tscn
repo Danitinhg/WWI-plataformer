@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://crojd4pydu8k3"]
+[gd_scene load_steps=49 format=3 uid="uid://crojd4pydu8k3"]
 
 [ext_resource type="Script" uid="uid://bv7r2px0kqnki" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://q04lwrqoqmtx" path="res://assets/characters/player/Pink Star/01-Idle/Idle 01.png" id="2_dovo2"]
@@ -244,7 +244,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttakn"]
 size = Vector2(14.25, 22)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rw8a5"]
+size = Vector2(14, 22)
+
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 4
 script = ExtResource("1_8afob")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -259,3 +263,13 @@ shape = SubResource("RectangleShape2D_ttakn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_rw8a5")
