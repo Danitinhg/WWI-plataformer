@@ -6,9 +6,9 @@ signal enemy_dead
 
 #Sistema de vida
 @export var max_health: int = 1
+@export var speed: float = 150.0
 var current_health: int = 1
 var is_dying: bool = false
-const SPEED = 150.0
 
 var move_direction = 1
 var can_walk = true
@@ -32,7 +32,7 @@ func _physics_process(delta):
 		velocity.y += get_gravity().y * delta
 
 	if can_walk:
-		velocity.x = move_direction * SPEED
+		velocity.x = move_direction * speed
 
 	move_and_slide()
 
