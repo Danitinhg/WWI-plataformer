@@ -10,7 +10,7 @@ signal player_died
 @export var speed: float = 100.0
 @export var acceleration: float = 250.0
 @export var friction: float = 800.0
-@export_group("Movimeinto aereo")
+@export_group("Movimiento aereo")
 @export var air_acceleration: float = 500.0
 @export var air_friction: float = 100.0
 @export var air_turn_acceleration: float = 1200.0

@@ -4,7 +4,7 @@ class_name EnemyBase
 #Señales
 signal enemy_dead
 
-#Sistema de visa
+#Sistema de vida
 @export var max_health: int = 1
 var current_health: int = 1
 var is_dying: bool = false
