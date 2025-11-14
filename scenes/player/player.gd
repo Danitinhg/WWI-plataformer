@@ -68,6 +68,7 @@ var ability_in_control: bool = false
 var current_health: int = 3
 var is_invincible: bool = false
 var is_dead: bool = false
+var is_hit: bool = false
 
 #Sprite del player
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -273,7 +274,9 @@ func update_animation():
 	if not abilities.is_empty():
 		ability_animation = abilities[current_ability_index].get_animation_name()
 
-	if ability_animation != "":
+	if is_hit:
+		new_animation = "hit"
+	elif ability_animation != "":
 		new_animation = ability_animation
 	elif is_spinning:
 		new_animation = "spin"
@@ -372,10 +375,17 @@ func take_damage(damage: int, knockback_direction: Vector2 = Vector2.ZERO):
 	player_damaged.emit(damage)
 	health_changed.emit(current_health, max_health)
 
+	is_hit = true
+	animated_sprite.play("hit")
+
 	if knockback_direction != Vector2.ZERO:
 		velocity = knockback_direction.normalized() * knockback_force
 
 	_activate_invincibility()
+
+	get_tree().create_timer(0.4).timeout.connect(func():
+		is_hit = false
+	)
 
 	if current_health <= 0:
 		die()
