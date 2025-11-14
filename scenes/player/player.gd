@@ -453,6 +453,29 @@ func die():
 
 	await get_tree().create_timer(0.5).timeout
 
+	_show_game_over()
+
+func _show_game_over():
+	#pusar el juego
+	get_tree().paused = true
+	
+	#Enseñar la escena gamer over
+	var game_over_path = "res://scenes/ui/game_over.tscn"
+	
+	#ver si esta la escena de game over
+	if not ResourceLoader.exists(game_over_path):
+		print("Advertencia: No existe la escena game_over.tscn")
+		print("Reiniciando nivel...")
+		#si no esta reinicia tal cual
+		get_tree().paused = false
+		get_tree().reload_current_scene()
+		return
+	
+	var game_over_scene = load(game_over_path) as PackedScene
+	var game_over_instance = game_over_scene.instantiate()
+	
+	get_tree().root.add_child(game_over_instance)
+
 func _on_hurt_box_body_entered(body: Node2D):
 	if body.is_in_group("enemies") and not is_invincible and not is_dead:
 		var knockback_dir := global_position - body.global_position
