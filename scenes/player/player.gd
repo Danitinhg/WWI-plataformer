@@ -383,13 +383,26 @@ func take_damage(damage: int, knockback_direction: Vector2 = Vector2.ZERO):
 func _activate_invincibility():
 	is_invincible = true
 
+	_start_blink_effect()
+
 	var timer := get_tree().create_timer(invincibility_duration)
 	timer.timeout.connect(_on_invincibility_timeout)
 
 	print("Invencibilidad activada por ", invincibility_duration, " segundos")
 
+func _start_blink_effect():
+	var blink_count = 5
+	var blink_duration = invincibility_duration / (blink_count * 2)
+
+	for i in range(blink_count):
+		await get_tree().create_timer(blink_duration).timeout
+		animated_sprite.modulate.a = 0.3
+		await get_tree().create_timer(blink_duration).timeout
+		animated_sprite.modulate.a = 1.0
+
 func _on_invincibility_timeout():
 	is_invincible = false
+	animated_sprite.modulate.a = 1.0
 	print("Invencibilidad desactivada")
 
 func die():
