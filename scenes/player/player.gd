@@ -389,6 +389,11 @@ func take_damage(damage: int, knockback_direction: Vector2 = Vector2.ZERO):
 
 	if current_health <= 0:
 		die()
+	else:
+		get_tree().create_timer(0.4).timeout.connect(func():
+			if not is_dead:
+				animated_sprite.play("idle")
+		)
 
 func _activate_invincibility():
 	is_invincible = true
@@ -405,9 +410,23 @@ func _start_blink_effect():
 	var blink_duration = invincibility_duration / (blink_count * 2)
 
 	for i in range(blink_count):
+		if not is_inside_tree():
+			return
 		await get_tree().create_timer(blink_duration).timeout
+
+		if not is_inside_tree():
+			return
+			
 		animated_sprite.modulate.a = 0.3
+		
+		if not is_inside_tree():
+			return
+			
 		await get_tree().create_timer(blink_duration).timeout
+		
+		if not is_inside_tree():
+			return
+			
 		animated_sprite.modulate.a = 1.0
 
 func _on_invincibility_timeout():
@@ -423,6 +442,16 @@ func die():
 	player_died.emit()
 
 	print("Player muerto")
+
+	set_physics_process(false)
+
+	animated_sprite.play("dead_hit")
+
+	await get_tree().create_timer(0.8).timeout
+
+	animated_sprite.play("dead_ground")
+
+	await get_tree().create_timer(0.5).timeout
 
 func _on_hurt_box_body_entered(body: Node2D):
 	if body.is_in_group("enemies") and not is_invincible and not is_dead:
