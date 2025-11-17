@@ -63,7 +63,13 @@ func die():
 
 	set_physics_process(false)
 
-	#Añadir animacion de muerte mas adelante
+	if animated_sprite and animated_sprite.sprite_frames.has_animation("dead"):
+		animated_sprite.play("dead")
+		#Espera la a animacion de muerte
+		await animated_sprite.animation_finished
+
 	var tween := create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.3)
-	tween.tween_callback(queue_free)
+	await tween.finished
+
+	queue_free()
