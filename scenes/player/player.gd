@@ -70,6 +70,11 @@ var is_invincible: bool = false
 var is_dead: bool = false
 var is_hit: bool = false
 
+#Sistema de ataque
+@export_group("Sistema de ataque")
+@export var stomp_bounce_force: float = -250.0
+@export var stomp_damage: int = 1
+
 #Sprite del player
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurt_box: Area2D = $HurtBox
