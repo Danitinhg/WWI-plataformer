@@ -482,9 +482,27 @@ func _show_game_over():
 	get_tree().root.add_child(game_over_instance)
 
 func _on_hurt_box_body_entered(body: Node2D):
-	if body.is_in_group("enemies") and not is_invincible and not is_dead:
+	if not body.is_in_group("enemies"):
+		return
+		
+	if is_invincible or is_dead:
+		return
+		
+	var is_falling_on_enemy = velocity.y > 0 and global_position.y < body.global_position.y
+	
+	if is_falling_on_enemy:
+		stomp_enemy(body)
+	else:
 		var knockback_dir := global_position - body.global_position
-
 		take_damage(1, knockback_dir)
-
 		print("Colisión con enemigo: ", body.name)
+		
+func stomp_enemy(enemy: Node2D):
+	if enemy.has_method("take_damage"):
+		enemy.take_damage(stomp_damage)
+		print("¡Saltaste sobre ", enemy.name, "!")
+		
+	velocity.y = stomp_bounce_force
+	
+	can_spin = true
+	is_spinning = false
