@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://vu1raovqrwuf"]
+[gd_scene load_steps=36 format=3 uid="uid://vu1raovqrwuf"]
 
 [ext_resource type="PackedScene" uid="uid://djtm2i81u5uxa" path="res://scenes/enemies/enemy_base.tscn" id="1_8vkrd"]
 [ext_resource type="Script" uid="uid://ctypqkk24a7pa" path="res://scenes/enemies/samehader/samehader.gd" id="2_xuojd"]
@@ -17,13 +17,21 @@
 [ext_resource type="Texture2D" uid="uid://codcan51o1ppe" path="res://assets/enemies/Fierce Tooth/07-Attack/Attack 04.png" id="9_x32y5"]
 [ext_resource type="Texture2D" uid="uid://bc70l5tqlxoyg" path="res://assets/enemies/Fierce Tooth/07-Attack/Attack 05.png" id="10_meocq"]
 [ext_resource type="Texture2D" uid="uid://5j31bv661upm" path="res://assets/enemies/Fierce Tooth/04-Fall/Fall 01.png" id="11_16nq6"]
+[ext_resource type="Texture2D" uid="uid://cdeagwax2dajo" path="res://assets/enemies/Fierce Tooth/10-Dead Ground/Dead Ground 01.png" id="11_sknp7"]
 [ext_resource type="Texture2D" uid="uid://cbpuhh0prshgv" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 01.png" id="12_bql7d"]
+[ext_resource type="Texture2D" uid="uid://c8221l1nwycpw" path="res://assets/enemies/Fierce Tooth/10-Dead Ground/Dead Ground 02.png" id="12_oisxl"]
 [ext_resource type="Texture2D" uid="uid://idvgs3qddxj6" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 02.png" id="13_j8opx"]
+[ext_resource type="Texture2D" uid="uid://c1yyvcm3ds84s" path="res://assets/enemies/Fierce Tooth/10-Dead Ground/Dead Ground 03.png" id="13_mr8jm"]
 [ext_resource type="Texture2D" uid="uid://2qeovhmnb5or" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 03.png" id="14_ekj01"]
+[ext_resource type="Texture2D" uid="uid://dy1ihum73k3ly" path="res://assets/enemies/Fierce Tooth/10-Dead Ground/Dead Ground 04.png" id="14_prpj7"]
 [ext_resource type="Texture2D" uid="uid://dhkhh8mpxspma" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 04.png" id="15_13d70"]
+[ext_resource type="Texture2D" uid="uid://nwb30kv448py" path="res://assets/enemies/Fierce Tooth/09-Dead Hit/Dead Hit 01.png" id="15_iefvj"]
+[ext_resource type="Texture2D" uid="uid://0mnw6gp7fwle" path="res://assets/enemies/Fierce Tooth/09-Dead Hit/Dead Hit 02.png" id="16_i8076"]
 [ext_resource type="Texture2D" uid="uid://dhubhdjhhgv1n" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 05.png" id="16_m3241"]
 [ext_resource type="Texture2D" uid="uid://bfianxxm70rjv" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 06.png" id="17_ctofp"]
+[ext_resource type="Texture2D" uid="uid://coewf71ncy24o" path="res://assets/enemies/Fierce Tooth/09-Dead Hit/Dead Hit 03.png" id="17_lcrx8"]
 [ext_resource type="Texture2D" uid="uid://dst15wt0h8xb" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 07.png" id="18_dm3ux"]
+[ext_resource type="Texture2D" uid="uid://dfpiqdaohq6fh" path="res://assets/enemies/Fierce Tooth/09-Dead Hit/Dead Hit 04.png" id="18_wcd6q"]
 [ext_resource type="Texture2D" uid="uid://dn67ek32gjhfo" path="res://assets/enemies/Fierce Tooth/01-Idle/Idle 08.png" id="19_sj47h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xuojd"]
@@ -60,6 +68,40 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_sknp7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_oisxl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_mr8jm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_prpj7")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_iefvj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_i8076")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_lcrx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_wcd6q")
+}],
+"loop": true,
+"name": &"dead_hit",
 "speed": 5.0
 }, {
 "frames": [{
@@ -128,15 +170,11 @@ radius = 9.0
 height = 24.0
 
 [node name="Samehader" instance=ExtResource("1_8vkrd")]
-collision_layer = 2
-collision_mask = 4
 script = ExtResource("2_xuojd")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_xuojd")
-animation = &"attack"
-frame = 4
-frame_progress = 0.45055708
+animation = &"dead_hit"
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(1, 2)
