@@ -15,6 +15,7 @@ var can_walk = true
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var wall_raycast = $RayCast2D
+@onready var collision_shape = $CollisionShape2D
 
 func _ready():
 	current_health = max_health
@@ -60,6 +61,9 @@ func die():
 	enemy_dead.emit()
 
 	print(name, " murio")
+
+	if collision_shape:
+		collision_shape.set_deferred("disabled", true)
 
 	set_physics_process(false)
 
