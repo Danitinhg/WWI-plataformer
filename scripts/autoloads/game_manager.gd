@@ -6,6 +6,7 @@ var levels: Array[LevelData] = []
 var all_abilities: Array[String] = ["Dash", "DoubleJump", "GroundPound"]
 var current_level: int = -1
 var current_level_ablities: Array[String] = []
+var level_checkpoints: Dictionary = {}
 
 func _ready():
 	load_levels()
@@ -20,6 +21,9 @@ func load_levels():
 
 func load_level(level_id: int):
 	current_level = level_id
+
+	#limpiar checkp
+	clear_other_level_checkpoints(level_id)
 
 	#🗣️🔥 Solo para el nivel de prueba🗣️🔥
 	if level_id == -1:
@@ -62,3 +66,14 @@ func return_to_main_menu():
 func get_level_abilities() -> Array[String]:
 	return current_level_ablities
 	
+func clear_other_level_checkpoints(keep_level_id: int):
+	var keys_to_remove = []
+	for level_id in level_checkpoints.keys():
+		if level_id != keep_level_id:
+			keys_to_remove.append(level_id)
+
+	for key in keys_to_remove:
+		level_checkpoints.erase(key)
+
+	if keys_to_remove.size() > 0:
+		print("Checkp limpiados", keys_to_remove)
