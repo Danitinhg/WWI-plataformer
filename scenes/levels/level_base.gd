@@ -4,12 +4,34 @@ class_name LevelBase
 @export var level_data: LevelData
 var player_scene = preload("res://scenes/player/player.tscn")
 var player: CharacterBody2D
+var player_spawn_position: Vector2 #Pos inicial del player
+var active_checkpoint_position: Vector2 
+var has_active_checkpoint: bool = false
 
 func _ready():
 	player = player_scene.instantiate()
 	add_child(player)
+
+	await get_tree().process_frame
+	player_spawn_position = player.global_position
+
+	restore_checkpoint_if_exits()
+
 	if level_data:
 		hide_collected_items()
+
+func restore_checkpoint_if_exits():
+	if not level_data:
+		return
+	#ver si ta guardao el checkpoint
+	if GameManager.level_checkpoints.has(level_data.level_id):
+		var checkpoint_pos = GameManager.level_checkpoints[level_data.level_id]
+		active_checkpoint_position = checkpoint_pos
+		has_active_checkpoint = true
+
+		reactivate_checkpoint_visual(checkpoint_pos)
+
+		print("Checkpoint restaurado en: ", checkpoint_pos)
 
 func hide_collected_items():
 	var collectibles = get_tree().get_nodes_in_group("collectibles")
@@ -18,3 +40,38 @@ func hide_collected_items():
 		if collectible.collectible_id != null:
 			if PlayerData.is_collectible_collected(level_data.level_id, collectible.collectible_id):
 				collectible.queue_free()
+
+func activate_checkpoint(checkpoint_position: Vector2):
+	active_checkpoint_position = checkpoint_position
+	has_active_checkpoint = true
+
+	if level_data:
+		GameManager.level_checkpoints[level_data.level_id] = checkpoint_position
+		print("Checkpoint guardado para el nivel: ", level_data.level_id)
+
+	desactivate_other_checkpoints(checkpoint_position)
+
+func desactivate_other_checkpoints(active_position: Vector2):
+	var checkpoints = get_tree().get_nodes_in_group("checkpoints")
+	for checkpoint in checkpoints:
+		if checkpoint.global_position != active_position:
+			checkpoint.deactivate()
+
+func reactivate_checkpoint_visual(checkpoint_position: Vector2):
+	var checkpoints = get_tree().get_nodes_in_group("checkpoints")
+	for checkpoint in checkpoints:
+		if checkpoint.global_position.distance_to(checkpoint_position) < 10:
+			checkpoint.activate()
+			break
+
+func respawn_player():
+	if not player:
+		return
+		
+	var respawn_position = player_spawn_position
+	if has_active_checkpoint:
+		respawn_position = active_checkpoint_position
+		print("Respawneando player en: ", respawn_position)
+		
+		if player.has_method("respawn"):
+			player.respawn(respawn_position)
