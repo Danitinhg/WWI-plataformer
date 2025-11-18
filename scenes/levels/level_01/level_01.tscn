@@ -115,7 +115,6 @@ collectible_id = 2
 
 [node name="Crabb" parent="." instance=ExtResource("6_7mo7t")]
 position = Vector2(1260, 1)
-collision_layer = 1
 
 [node name="Samehader" parent="." instance=ExtResource("7_a7arc")]
 position = Vector2(1655, 0)
