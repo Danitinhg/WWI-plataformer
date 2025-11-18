@@ -55,7 +55,7 @@ func desactivate_other_checkpoints(active_position: Vector2):
 	var checkpoints = get_tree().get_nodes_in_group("checkpoints")
 	for checkpoint in checkpoints:
 		if checkpoint.global_position != active_position:
-			checkpoint.deactivate()
+			checkpoint.desactivate()
 
 func reactivate_checkpoint_visual(checkpoint_position: Vector2):
 	var checkpoints = get_tree().get_nodes_in_group("checkpoints")
@@ -71,7 +71,8 @@ func respawn_player():
 	var respawn_position = player_spawn_position
 	if has_active_checkpoint:
 		respawn_position = active_checkpoint_position
-		print("Respawneando player en: ", respawn_position)
+
+	print("Respawneando player en: ", respawn_position)
 		
-		if player.has_method("respawn"):
-			player.respawn(respawn_position)
+	if player.has_method("respawn"):
+		player.respawn(respawn_position)

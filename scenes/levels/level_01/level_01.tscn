@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cq7ygttaymho8"]
+[gd_scene load_steps=13 format=4 uid="uid://cq7ygttaymho8"]
 
 [ext_resource type="Script" uid="uid://88smftbebkju" path="res://scenes/levels/level_01/level_01.gd" id="2_15mrc"]
 [ext_resource type="Resource" uid="uid://cptkn01au3wk1" path="res://resources/levels/level_01_data.tres" id="2_fi7ee"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://886te6knwaxy" path="res://scenes/enemies/crabb/crabb.tscn" id="6_7mo7t"]
 [ext_resource type="PackedScene" uid="uid://vu1raovqrwuf" path="res://scenes/enemies/samehader/samehader.tscn" id="7_a7arc"]
 [ext_resource type="PackedScene" uid="uid://q2it0pm04as4" path="res://scenes/enemies/seashell/seashell.tscn" id="8_nt34b"]
+[ext_resource type="PackedScene" uid="uid://bu6n8pt027kmq" path="res://scenes/checkpoints/checkpoint.tscn" id="9_nt34b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fi7ee"]
 
@@ -121,3 +122,6 @@ position = Vector2(1655, 0)
 
 [node name="Seashell" parent="." instance=ExtResource("8_nt34b")]
 position = Vector2(2045, -6)
+
+[node name="Checkpoint" parent="." instance=ExtResource("9_nt34b")]
+position = Vector2(1519, -18)

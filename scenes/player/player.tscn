@@ -109,7 +109,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_genst")
 }],
-"loop": true,
+"loop": false,
 "name": &"dead_ground",
 "speed": 5.0
 }, {
@@ -126,7 +126,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("13_iwuka")
 }],
-"loop": true,
+"loop": false,
 "name": &"dead_hit",
 "speed": 5.0
 }, {
@@ -254,8 +254,7 @@ script = ExtResource("1_8afob")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ugbui")
-animation = &"dead_hit"
-frame_progress = 0.57364166
+animation = &"dead_ground"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

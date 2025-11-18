@@ -458,7 +458,41 @@ func die():
 
 	await get_tree().create_timer(0.5).timeout
 
-	_show_game_over()
+	var level = get_parent()
+	if level and level.has_method("respawn_player"):
+		level.respawn_player()
+	else:
+		_show_game_over()
+
+	
+
+func respawn(spawn_position: Vector2):
+	is_dead = false
+	is_hit = false
+	is_invincible = false
+	is_landing = false
+	is_anticipating = false
+	is_spinning = false
+	ability_in_control = false
+
+	#Resetear vida
+	current_health = max_health
+	health_changed.emit(current_health, max_health)
+
+	#Ponerlo en el spawn
+	global_position = spawn_position
+	velocity = Vector2.ZERO
+
+	#Resetear fisica
+	set_physics_process(true)
+
+	#Resetear player
+	animated_sprite.modulate.a = 1.0
+	animated_sprite.scale.x = 1.0
+	animated_sprite.rotation = 0.0
+	animated_sprite.play("idle")
+
+	print("Player respawn en: ", spawn_position)
 
 func _show_game_over():
 	#pusar el juego
