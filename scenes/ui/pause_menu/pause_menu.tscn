@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://s4joiixvs22j"]
+[gd_scene load_steps=3 format=3 uid="uid://s4joiixvs22j"]
 
 [ext_resource type="Script" uid="uid://crdikiqbiqcqf" path="res://scenes/ui/pause_menu/pause_menu.gd" id="1_kgchh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgchh"]
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
 
 [node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_kgchh")
@@ -17,6 +20,7 @@ offset_right = 200.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kgchh")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1

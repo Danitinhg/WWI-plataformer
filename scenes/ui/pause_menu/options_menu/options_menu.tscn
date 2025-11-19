@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0cf0so7ua55k"]
+[gd_scene load_steps=3 format=3 uid="uid://b0cf0so7ua55k"]
 
-[ext_resource type="Script" path="res://scenes/ui/pause_menu/options_menu/options_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://854yi8hy347l" path="res://scenes/ui/pause_menu/options_menu/options_menu.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygfg4"]
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+border_width_bottom = 4
 
 [node name="OptionsMenu" type="Control"]
 process_mode = 3
@@ -25,6 +29,7 @@ offset_right = 250.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ygfg4")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
