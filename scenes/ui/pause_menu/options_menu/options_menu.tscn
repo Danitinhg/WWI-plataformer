@@ -4,7 +4,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygfg4"]
 bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
-border_width_bottom = 4
 
 [node name="OptionsMenu" type="Control"]
 process_mode = 3
