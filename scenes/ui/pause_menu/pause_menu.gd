@@ -72,9 +72,11 @@ func _on_options_pressed():
 	var options_instance = options_scene.instantiate()
 	get_tree().root.add_child(options_instance)
 	options_instance.options_closed.connect(_on_options_closed)
+	set_process_input(false)
 	hide()
 
 func _on_options_closed():
+	set_process_input(true)
 	show()
 
 func _on_main_menu_pressed():
