@@ -68,8 +68,14 @@ func _on_restart_pressed():
 	get_tree().reload_current_scene()
 
 func _on_options_pressed():
-	#Implementar menu de opciones
-	print("Opciones aun no implementadas")
+	var options_scene = load("res://scenes/ui/pause_menu/options_menu/options_menu.tscn")
+	var options_instance = options_scene.instantiate()
+	get_tree().root.add_child(options_instance)
+	options_instance.options_closed.connect(_on_options_closed)
+	hide()
+
+func _on_options_closed():
+	show()
 
 func _on_main_menu_pressed():
 	get_tree().paused = false
