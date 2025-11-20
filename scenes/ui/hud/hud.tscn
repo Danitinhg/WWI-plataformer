@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://d135p3nmej7ya"]
+[gd_scene load_steps=2 format=3 uid="uid://d135p3nmej7ya"]
+
+[ext_resource type="Script" uid="uid://di4d2ey3n0kgr" path="res://scenes/ui/hud/hud.gd" id="1_bngdn"]
 
 [node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_bngdn")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 200.0
@@ -8,6 +11,6 @@ offset_bottom = 33.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
-[node name="CoinLabel" type="Label" parent="MarginContainer"]
+[node name="BigCoinLabel" type="Label" parent="MarginContainer"]
 layout_mode = 2
-text = "Monedas 0/3"
+text = "Monedas Grandes 0/3"
