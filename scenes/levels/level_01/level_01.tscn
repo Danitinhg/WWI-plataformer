@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cq7ygttaymho8"]
+[gd_scene load_steps=15 format=4 uid="uid://cq7ygttaymho8"]
 
 [ext_resource type="Script" uid="uid://88smftbebkju" path="res://scenes/levels/level_01/level_01.gd" id="2_15mrc"]
 [ext_resource type="Resource" uid="uid://cptkn01au3wk1" path="res://resources/levels/level_01_data.tres" id="2_fi7ee"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://q2it0pm04as4" path="res://scenes/enemies/seashell/seashell.tscn" id="8_nt34b"]
 [ext_resource type="PackedScene" uid="uid://bu6n8pt027kmq" path="res://scenes/checkpoints/checkpoint.tscn" id="9_nt34b"]
 [ext_resource type="PackedScene" uid="uid://d135p3nmej7ya" path="res://scenes/ui/hud/hud.tscn" id="10_7f7yp"]
+[ext_resource type="PackedScene" uid="uid://ci72621xo5h3g" path="res://scenes/hazards/spikes/spike.tscn" id="11_dic8d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fi7ee"]
 
@@ -127,3 +128,6 @@ position = Vector2(2045, -6)
 position = Vector2(1519, -18)
 
 [node name="Hud" parent="." instance=ExtResource("10_7f7yp")]
+
+[node name="Spike" parent="." instance=ExtResource("11_dic8d")]
+position = Vector2(468, 7)
