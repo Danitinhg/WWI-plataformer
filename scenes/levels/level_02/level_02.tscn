@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpbacnqtb4bi1"]
+[gd_scene load_steps=6 format=3 uid="uid://cpbacnqtb4bi1"]
 
 [ext_resource type="Script" uid="uid://b24lthyqe7gih" path="res://scenes/levels/level_02/level_02.gd" id="1_e78mx"]
 [ext_resource type="Resource" uid="uid://w0fkbusaohtf" path="res://resources/levels/level_02_data.tres" id="2_0kshx"]
 [ext_resource type="PackedScene" uid="uid://bvk6mthybt2hs" path="res://scenes/collectibles/big_coin/big_coin.tscn" id="2_tmh7d"]
 [ext_resource type="PackedScene" uid="uid://s4joiixvs22j" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="3_pause"]
+[ext_resource type="PackedScene" uid="uid://d135p3nmej7ya" path="res://scenes/ui/hud/hud.tscn" id="5_vs6ma"]
 
 [node name="Level02" type="Node2D"]
 script = ExtResource("1_e78mx")
@@ -26,3 +27,5 @@ collectible_id = 2
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_pause")]
+
+[node name="Hud" parent="." instance=ExtResource("5_vs6ma")]
