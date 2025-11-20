@@ -475,6 +475,17 @@ func respawn(spawn_position: Vector2):
 	is_spinning = false
 	ability_in_control = false
 
+	#Resetear las habilidades
+	for ability in abilities:
+		if "dash_timer" in ability:
+			ability.dash_timer = 0.0
+		if "is_pounding" in ability:
+			ability.is_pounding = false
+		if "has_double_jumped" in ability:
+			ability.has_double_jumped = false
+		if "cooldown_timer" in ability:
+			ability.cooldown_timer = 0.0
+
 	#Resetear vida
 	current_health = max_health
 	health_changed.emit(current_health, max_health)
