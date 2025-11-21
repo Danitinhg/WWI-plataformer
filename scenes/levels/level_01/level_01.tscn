@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://cq7ygttaymho8"]
+[gd_scene load_steps=20 format=4 uid="uid://cq7ygttaymho8"]
 
 [ext_resource type="Script" uid="uid://88smftbebkju" path="res://scenes/levels/level_01/level_01.gd" id="2_15mrc"]
 [ext_resource type="Resource" uid="uid://cptkn01au3wk1" path="res://resources/levels/level_01_data.tres" id="2_fi7ee"]
@@ -15,6 +15,7 @@
 [ext_resource type="TileSet" uid="uid://c07st67w8i208" path="res://assets/enviroment/tilesets/terrain/tile_set_terrain.tres" id="13_pqr1j"]
 [ext_resource type="TileSet" uid="uid://koonxmnwd23r" path="res://assets/enviroment/backgrounds/tile_set_background.tres" id="14_x8ff0"]
 [ext_resource type="TileSet" uid="uid://bffmp0afco7h6" path="res://assets/enviroment/props/tile_set_props.tres" id="15_3b8aa"]
+[ext_resource type="PackedScene" uid="uid://c3kopfihrxxl3" path="res://scenes/collectibles/coin/coin.tscn" id="16_n50fv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fi7ee"]
 
@@ -151,3 +152,44 @@ tile_set = ExtResource("14_x8ff0")
 [node name="TileMapLayer2" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAPAP//AAAAAAAAAAAPAAAAAAAAAAEAAAAQAP//AAABAAAAAAAQAAAAAAABAAEAAAA=")
 tile_set = ExtResource("15_3b8aa")
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(202, -25)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(222, -26)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(248, -21)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(449, -41)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(470, -38)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(486, -41)
+
+[node name="Coin7" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(774, -34)
+
+[node name="Coin8" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(797, -35)
+
+[node name="Coin9" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(1327, -61)
+
+[node name="Coin10" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(1344, -81)
+
+[node name="Coin11" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(1371, -99)
+
+[node name="Coin12" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(1775, -48)
+
+[node name="Coin13" parent="Coins" instance=ExtResource("16_n50fv")]
+position = Vector2(1792, -31)
