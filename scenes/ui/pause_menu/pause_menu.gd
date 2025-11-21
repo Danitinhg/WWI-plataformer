@@ -64,6 +64,8 @@ func _on_resume_pressed():
 	resume_game()
 
 func _on_restart_pressed():
+	if GameManager.current_level >= 0:
+		GameManager.level_checkpoints.erase(GameManager.current_level)
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
