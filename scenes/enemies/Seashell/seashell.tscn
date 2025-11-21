@@ -1,26 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://q2it0pm04as4"]
+[gd_scene load_steps=8 format=3 uid="uid://q2it0pm04as4"]
 
 [ext_resource type="Script" uid="uid://dsogxb2cqh1ao" path="res://scenes/enemies/seashell/seashell.gd" id="1_to1wt"]
 [ext_resource type="Texture2D" uid="uid://b5w3g05hxuwgc" path="res://assets/enemies/Seashell/Seashell Idle/1.png" id="2_c3gau"]
-[ext_resource type="Texture2D" uid="uid://c0owuo1n77ise" path="res://assets/enemies/Seashell/Seashell Destroyed/1.png" id="2_wofd5"]
-[ext_resource type="Texture2D" uid="uid://k5mj718nv1hl" path="res://assets/enemies/Seashell/Seashell Bite/2.png" id="3_r4ok5"]
-[ext_resource type="Texture2D" uid="uid://c730e64q2l8gk" path="res://assets/enemies/Seashell/Seashell Bite/1.png" id="4_r8hxq"]
-[ext_resource type="Texture2D" uid="uid://grj00vmemhtn" path="res://assets/enemies/Seashell/Seashell Bite/3.png" id="5_4643b"]
+[ext_resource type="Texture2D" uid="uid://diq4wt26ln843" path="res://assets/enemies/Seashell/Seashell Hit/3.png" id="2_miunl"]
+[ext_resource type="Texture2D" uid="uid://cty6xkqcvwl84" path="res://assets/enemies/Seashell/Seashell Hit/1.png" id="3_wofd5"]
+[ext_resource type="Texture2D" uid="uid://dvt7remlfmg06" path="res://assets/enemies/Seashell/Seashell Hit/2.png" id="4_r4ok5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m4x7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_wofd5")
+"texture": ExtResource("4_r4ok5")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_r4ok5")
+"texture": ExtResource("2_c3gau")
+}],
+"loop": false,
+"name": &"anticipate_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wofd5")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_r8hxq")
+"texture": ExtResource("4_r4ok5")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_4643b")
+"texture": ExtResource("2_miunl")
 }],
 "loop": false,
 "name": &"dead",
@@ -45,7 +52,9 @@ script = ExtResource("1_to1wt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0m4x7")
-animation = &"idle"
+animation = &"anticipate_jump"
+frame = 1
+frame_progress = 1.0
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

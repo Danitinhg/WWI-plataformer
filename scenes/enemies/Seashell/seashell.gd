@@ -51,5 +51,8 @@ func change_direction():
 
 func _on_jump_timer_timeout():
 	if is_on_floor():
+		sprite.play("anticipate_jump")
+		await get_tree().create_timer(0.2).timeout
 		velocity.y = jump_force
 		velocity.x = direction * jump_horizontal_speed
+		sprite.play("idle")
