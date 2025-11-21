@@ -46,7 +46,7 @@ func _physics_process(delta: float):
 
 func change_direction():
 	direction *= -1
-	sprite.flip_h = direction < 0
+	sprite.flip_h = direction > 0
 	raycast.target_position = Vector2(15 * direction, 0)
 
 func _on_jump_timer_timeout():

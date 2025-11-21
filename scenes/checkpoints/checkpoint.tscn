@@ -1,37 +1,54 @@
-[gd_scene load_steps=14 format=3 uid="uid://bu6n8pt027kmq"]
+[gd_scene load_steps=22 format=3 uid="uid://bu6n8pt027kmq"]
 
 [ext_resource type="Script" uid="uid://c2mybing7vkmb" path="res://scenes/checkpoints/checkpoint.gd" id="1_dbbsr"]
-[ext_resource type="Texture2D" uid="uid://hscbqedjpvhf" path="res://assets/enviroment/props/Decorations/Candle/Candle/01.png" id="2_atne6"]
-[ext_resource type="Texture2D" uid="uid://csme1hdpirtxl" path="res://assets/enviroment/props/Decorations/Candle/Candle/02.png" id="3_bea7c"]
-[ext_resource type="Texture2D" uid="uid://bo8ijwdmw7rlt" path="res://assets/enviroment/props/Decorations/Candle/Candle/03.png" id="4_mm05g"]
-[ext_resource type="Texture2D" uid="uid://chqsimmmp3mby" path="res://assets/enviroment/props/Decorations/Candle/Candle/04.png" id="5_ka7jl"]
-[ext_resource type="Texture2D" uid="uid://5nxaciyv6if3" path="res://assets/enviroment/props/Decorations/Candle/Candle/05.png" id="6_5oekd"]
-[ext_resource type="Texture2D" uid="uid://dbkrvdj0xq6va" path="res://assets/enviroment/props/Decorations/Candle/Candle/06.png" id="7_kiljg"]
-[ext_resource type="Texture2D" uid="uid://em8chtpg1op4" path="res://assets/enviroment/props/Decorations/Candle/Candle Light/01.png" id="8_a0wjd"]
-[ext_resource type="Texture2D" uid="uid://cnfv6kvax7qk3" path="res://assets/enviroment/props/Decorations/Candle/Candle Light/02.png" id="9_4wkwe"]
-[ext_resource type="Texture2D" uid="uid://cwmno68nmwkno" path="res://assets/enviroment/props/Decorations/Candle/Candle Light/03.png" id="10_hp31k"]
-[ext_resource type="Texture2D" uid="uid://dj4k3y21thtbc" path="res://assets/enviroment/props/Decorations/Candle/Candle Light/04.png" id="11_meodh"]
+[ext_resource type="Texture2D" uid="uid://hobemhf16iqb" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-01.png" id="2_hp31k"]
+[ext_resource type="Texture2D" uid="uid://c5e1yi51ey30j" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-02.png" id="3_meodh"]
+[ext_resource type="Texture2D" uid="uid://b1a6t1du6ws48" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-03.png" id="4_gcw6v"]
+[ext_resource type="Texture2D" uid="uid://cd4plieaco7ou" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-04.png" id="5_tt8a8"]
+[ext_resource type="Texture2D" uid="uid://byy2bdgy1fcr" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-05.png" id="6_i8kpt"]
+[ext_resource type="Texture2D" uid="uid://clx0r5eos1465" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-06.png" id="7_77od1"]
+[ext_resource type="Texture2D" uid="uid://2b132ch6w6na" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-07.png" id="8_l3714"]
+[ext_resource type="Texture2D" uid="uid://chpaqe53mebln" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-08.png" id="9_swwit"]
+[ext_resource type="Texture2D" uid="uid://bpok7jf5jrq5y" path="res://assets/enviroment/props/Checkpoint/Check Active/Check-09.png" id="10_iqcym"]
+[ext_resource type="Texture2D" uid="uid://bfymacalji6xi" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-01.png" id="11_jt4u1"]
+[ext_resource type="Texture2D" uid="uid://dfp5tyerfusql" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-02.png" id="12_rcbgk"]
+[ext_resource type="Texture2D" uid="uid://ftx1kxohlnh0" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-03.png" id="13_qh5km"]
+[ext_resource type="Texture2D" uid="uid://b8hudh663v2w8" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-04.png" id="14_ml7wp"]
+[ext_resource type="Texture2D" uid="uid://w2y7xm0n6fx4" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-05.png" id="15_dk001"]
+[ext_resource type="Texture2D" uid="uid://dybvowd6o67qg" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-06.png" id="16_tmq7r"]
+[ext_resource type="Texture2D" uid="uid://cmmv74jcp4ie3" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-07.png" id="17_1hd5u"]
+[ext_resource type="Texture2D" uid="uid://1dyeaguouqig" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-08.png" id="18_ko3ai"]
+[ext_resource type="Texture2D" uid="uid://duh8nixk2w64a" path="res://assets/enviroment/props/Checkpoint/Check no Active/Check-09.png" id="19_drloi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gcw6v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_atne6")
+"texture": ExtResource("2_hp31k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_bea7c")
+"texture": ExtResource("3_meodh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_mm05g")
+"texture": ExtResource("4_gcw6v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_ka7jl")
+"texture": ExtResource("5_tt8a8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_5oekd")
+"texture": ExtResource("6_i8kpt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_kiljg")
+"texture": ExtResource("7_77od1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_l3714")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_swwit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_iqcym")
 }],
 "loop": true,
 "name": &"active",
@@ -39,16 +56,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_a0wjd")
+"texture": ExtResource("11_jt4u1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_4wkwe")
+"texture": ExtResource("12_rcbgk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_hp31k")
+"texture": ExtResource("13_qh5km")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_meodh")
+"texture": ExtResource("14_ml7wp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_dk001")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_tmq7r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_1hd5u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_ko3ai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_drloi")
 }],
 "loop": true,
 "name": &"inactive",
@@ -63,7 +95,8 @@ script = ExtResource("1_dbbsr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gcw6v")
-animation = &"inactive"
+animation = &"active"
+frame_progress = 0.45769456
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 0

@@ -8,6 +8,7 @@ var is_activated: bool = false
 func _ready():
     add_to_group("checkpoints")
     body_entered.connect(_on_body_entered)
+    sprite.play("inactive")
 
 func _on_body_entered(body: Node2D):
     if body.is_in_group("player") and not is_activated:
@@ -25,7 +26,7 @@ func activate():
 
 func change_visual():
     if sprite and sprite is AnimatedSprite2D:
-        sprite.play("activate")
+        sprite.play("active")
 
 func desactivate():
     is_activated = false
