@@ -12,5 +12,9 @@ func collect():
 	timer.timeout.connect(on_level_end_timer_timeout)
 
 func on_level_end_timer_timeout():
+	#Cuando se reinicia un nivel, si hay un checkpoint activado este se borra
+	if GameManager.current_level >= 0:
+		GameManager.level_checkpoints.erase(GameManager.current_level)
+
 	# Vuelve al mapa
 	GameManager.return_to_level_selector()

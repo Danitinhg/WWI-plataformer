@@ -63,7 +63,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Dash",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -254,7 +254,8 @@ script = ExtResource("1_8afob")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ugbui")
-animation = &"dead_ground"
+animation = &"Dash"
+frame_progress = 0.9861082
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
