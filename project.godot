@@ -21,6 +21,10 @@ config/icon="res://icon.svg"
 GameManager="*res://scripts/autoloads/game_manager.gd"
 PlayerData="*res://scripts/autoloads/player_data.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="WWI_Source"

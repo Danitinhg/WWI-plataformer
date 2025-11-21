@@ -262,6 +262,8 @@ shape = SubResource("RectangleShape2D_ttakn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+limit_top = -2
+limit_bottom = 2
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
