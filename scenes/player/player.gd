@@ -533,7 +533,7 @@ func _on_hurt_box_body_entered(body: Node2D):
 	if is_invincible or is_dead:
 		return
 		
-	var is_falling_on_enemy = velocity.y > 0 and global_position.y < body.global_position.y
+	var is_falling_on_enemy = (velocity.y > 0 or is_spinning) and global_position.y < body.global_position.y
 	
 	if is_falling_on_enemy:
 		stomp_enemy(body)
@@ -550,4 +550,5 @@ func stomp_enemy(enemy: Node2D):
 	velocity.y = stomp_bounce_force
 	
 	can_spin = true
-	is_spinning = false
+	if is_spinning:
+		end_spin()
