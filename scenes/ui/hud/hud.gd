@@ -16,38 +16,35 @@ func _ready():
 	# Esperar pa que el nivel cargue todos los nodos
 	await get_tree().process_frame
 
-	# Contar cuántas big_coins hay en el nivel
-	count_total_coins()
-
 	# Conectar a todos los coleccionables
 	connect_to_collectibles()
 
 	# Actualizar display
 	update_big_coin_display()
 
-func count_total_coins():
-	var collectibles = get_tree().get_nodes_in_group("collectibles")
-	total_big_coins = collectibles.size()
-	print("Total de monedas en el nivel: ", total_big_coins)
-
 func connect_to_collectibles():
 	var collectibles = get_tree().get_nodes_in_group("collectibles")
+	total_big_coins = 0
 	for collectible in collectibles:
 		if collectible.has_signal("collected"):
-			collectible.collected.connect(_on_big_coin_collected)
-			print("Conectado a coleccionable: ", collectible.name)
+			if collectible is Coin:
+				collectible.collected.connect(_on_coin_collected)
+			else:
+				collectible.collected.connect(_on_big_coin_collected)
+				total_big_coins += 1
+	update_big_coin_display()
 
 func _on_big_coin_collected(_collectible):
 	current_big_coins += 1
 	update_big_coin_display()
 	print("Moneda recogida! Total: ", current_big_coins, "/", total_big_coins)
 
-func update_big_coin_display():
-	big_coin_label.text = "Monedas Grandes: %d/%d" % [current_big_coins, total_big_coins]
-
-func add_coin():
+func _on_coin_collected(_coin):
 	current_coins += 1
 	update_coin_display()
+
+func update_big_coin_display():
+	big_coin_label.text = "Monedas Grandes: %d/%d" % [current_big_coins, total_big_coins]
 
 func update_coin_display():
 	coin_label.text = "Monedas x %d" % current_coins
