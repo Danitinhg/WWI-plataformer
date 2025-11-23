@@ -15,3 +15,7 @@ script = ExtResource("1_qty17")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(15, 0)
 collision_mask = 4
+
+[node name="FloorRayCast" type="RayCast2D" parent="."]
+target_position = Vector2(15, 20)
+collision_mask = 4

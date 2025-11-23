@@ -16,6 +16,7 @@ var can_walk = true
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var wall_raycast = $RayCast2D
 @onready var collision_shape = $CollisionShape2D
+@onready var floor_raycast = $FloorRayCast
 
 func _ready():
 	current_health = max_health
@@ -40,6 +41,12 @@ func _physics_process(delta):
 	if wall_raycast.is_colliding():
 		move_direction *= -1
 		wall_raycast.target_position.x *= -1
+		floor_raycast.target_position.x *= -1
+
+	if can_walk and is_on_floor() and floor_raycast and not floor_raycast.is_colliding():
+		move_direction *= -1
+		wall_raycast.target_position.x *= -1
+		floor_raycast.target_position.x *= -1
 
 func take_damage(damage: int):
 	if is_dying:
