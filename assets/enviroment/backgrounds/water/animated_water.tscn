@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://ikl4fcaxplik"]
+
+[ext_resource type="Texture2D" uid="uid://daiw4emd2yku8" path="res://assets/enviroment/backgrounds/water/Water Reflect Big 01.png" id="1_qtia8"]
+[ext_resource type="Texture2D" uid="uid://ca723lctl5et5" path="res://assets/enviroment/backgrounds/water/Water Reflect Big 02.png" id="2_ehhah"]
+[ext_resource type="Texture2D" uid="uid://8v476n5ulf0" path="res://assets/enviroment/backgrounds/water/Water Reflect Big 03.png" id="3_3giyb"]
+[ext_resource type="Texture2D" uid="uid://dyrrhgl55tr63" path="res://assets/enviroment/backgrounds/water/Water Reflect Big 04.png" id="4_v3ctx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hatyf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qtia8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ehhah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3giyb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v3ctx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_hatyf")
+animation = &"idle"
+frame_progress = 0.078018926
