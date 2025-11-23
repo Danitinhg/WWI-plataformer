@@ -228,4 +228,4 @@ tile_map_data = PackedByteArray("AAD8//v/AQAAAAAAAAD8//z/AQAAAAEAAAD8//3/AQAAAAI
 tile_set = SubResource("TileSet_y2esq")
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("4_u25o0")]
-position = Vector2(224, 11)
+position = Vector2(220, 11)
